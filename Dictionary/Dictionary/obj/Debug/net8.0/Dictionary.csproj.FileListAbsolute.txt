@@ -1,0 +1,15 @@
+E:\TravelLine2024\Dictionary\Dictionary\bin\Debug\net8.0\Dictionary.exe
+E:\TravelLine2024\Dictionary\Dictionary\bin\Debug\net8.0\Dictionary.deps.json
+E:\TravelLine2024\Dictionary\Dictionary\bin\Debug\net8.0\Dictionary.runtimeconfig.json
+E:\TravelLine2024\Dictionary\Dictionary\bin\Debug\net8.0\Dictionary.dll
+E:\TravelLine2024\Dictionary\Dictionary\bin\Debug\net8.0\Dictionary.pdb
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.GeneratedMSBuildEditorConfig.editorconfig
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.AssemblyInfoInputs.cache
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.AssemblyInfo.cs
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.csproj.CoreCompileInputs.cache
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.sourcelink.json
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.dll
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\refint\Dictionary.dll
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.pdb
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\Dictionary.genruntimeconfig.cache
+E:\TravelLine2024\Dictionary\Dictionary\obj\Debug\net8.0\ref\Dictionary.dll
