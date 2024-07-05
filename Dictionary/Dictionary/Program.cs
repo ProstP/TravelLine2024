@@ -18,10 +18,10 @@ while ( userCommand != ExitCommand )
     switch ( userCommand )
     {
         case GetTranslateCommand:
-            GetTranslateFromDictionary( ref dictionary );
+            GetTranslateFromDictionary( dictionary );
             break;
         case AddNewTranslateCommand:
-            AddNewTranslateToDictionary( ref dictionary );
+            AddNewTranslateToDictionary( dictionary );
             break;
         case ExitCommand:
             break;
@@ -48,7 +48,7 @@ void PrintMenu()
     Console.WriteLine( $"[{ExitCommand}] Exit" );
 }
 
-void GetTranslateFromDictionary( ref MyDictionary myDictionary )
+void GetTranslateFromDictionary( MyDictionary myDictionary )
 {
     Console.Write( "Write word: " );
     string word = Console.ReadLine();
@@ -72,7 +72,7 @@ void GetTranslateFromDictionary( ref MyDictionary myDictionary )
     }
 }
 
-void AddNewTranslateToDictionary( ref MyDictionary myDictionary )
+void AddNewTranslateToDictionary( MyDictionary myDictionary )
 {
     Console.Write( "Enter word: " );
     string word = Console.ReadLine();

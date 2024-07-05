@@ -3,3 +3,4 @@ dog:собака
 house:дом
 clock:часы
 new:новый
+word:слово
