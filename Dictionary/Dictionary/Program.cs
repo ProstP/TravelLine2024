@@ -45,12 +45,12 @@ void PrintMenu()
     Console.WriteLine( "Menu" );
     Console.WriteLine( $"[{GetTranslateCommand}] Get Translate" );
     Console.WriteLine( $"[{AddNewTranslateCommand}] Add new translate" );
-    Console.WriteLine( $"[{ExitCommand}] Exit" );
+    Console.WriteLine( $"[{ExitCommand}] Save and exit" );
 }
 
 void GetTranslateFromDictionary( MyDictionary myDictionary )
 {
-    Console.Write( "Write word: " );
+    Console.Write( "Enter word: " );
     string word = Console.ReadLine();
     var translate = myDictionary.GetTranslate( word );
     if ( translate != null )

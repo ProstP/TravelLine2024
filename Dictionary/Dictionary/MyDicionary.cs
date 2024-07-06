@@ -16,7 +16,7 @@
             if ( _dictionary.ContainsKey( word ) || _dictionary.ContainsValue( translate )
                 || _dictionary.ContainsKey( translate ) || _dictionary.ContainsValue( word ) )
             {
-                Console.WriteLine( "Word and translate is already in the dictionary" );
+                Console.WriteLine( "Word or translate is already in the dictionary" );
                 return;
             }
             _dictionary[ word ] = translate;
