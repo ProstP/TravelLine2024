@@ -1,6 +1,5 @@
 using Accommodations.Commands;
 using Accommodations.Dto;
-using Accommodations.Models;
 
 namespace Accommodations;
 
@@ -50,14 +49,12 @@ public static class AccommodationsProcessor
                     return;
                 }
 
-                // ѕроверка currency и выброс кастомизированного исключени€
                 CurrencyDto currency;
                 if ( !Enum.TryParse( parts[ 5 ], true, out currency ) )
                 {
                     throw new ArgumentException( "Unknown currency." );
                 }
 
-                //обработка невалидных дат
                 ParseStrToDate( parts[ 3 ], out startDate );
                 ParseStrToDate( parts[ 4 ], out endDate );
 
@@ -83,7 +80,6 @@ public static class AccommodationsProcessor
                     return;
                 }
 
-                // ѕри попытке распарсить id выброс исключени€, которое можем обработать
                 Guid bookingId;
                 ParseStrToGuid( parts[ 1 ], out bookingId );
                 CancelBookingCommand cancelCommand = new( _bookingService, bookingId );
@@ -93,7 +89,6 @@ public static class AccommodationsProcessor
                 break;
 
             case "undo":
-                // проверка на пустую историю команд
                 if ( !_executedCommands.Any() )
                 {
                     Console.WriteLine( "History of commands is empty" );
@@ -113,7 +108,6 @@ public static class AccommodationsProcessor
                     return;
                 }
                 Guid id;
-                // ѕри попытке распарсить id выброс исключени€, которое можем обработать
                 ParseStrToGuid( parts[ 1 ], out id );
                 FindBookingByIdCommand findCommand = new( _bookingService, id );
                 findCommand.Execute();
@@ -126,7 +120,6 @@ public static class AccommodationsProcessor
                     return;
                 }
                 string categoryName = parts[ 3 ];
-                //ќбработка невалидных дат
                 ParseStrToDate( parts[ 1 ], out startDate );
                 ParseStrToDate( parts[ 2 ], out endDate );
                 SearchBookingsCommand searchCommand = new( _bookingService, startDate, endDate, categoryName );
@@ -139,7 +132,6 @@ public static class AccommodationsProcessor
         }
     }
 
-    //ћетод пытающийс€ распарсить строку в дату, в случае ошибки выбросит исключение, которое может быть обработано
     private static void ParseStrToDate( string str, out DateTime date )
     {
         if ( !DateTime.TryParse( str, out date ) )
@@ -148,7 +140,6 @@ public static class AccommodationsProcessor
         }
     }
 
-    //ћетод пытающийс€ распарсить строку в guid, в случае ошибки выбросит исключение, которое может быть обработано
     private static void ParseStrToGuid( string str, out Guid id )
     {
         if ( Guid.TryParse( str, out id ) )

@@ -23,7 +23,6 @@ public class BookingService : IBookingService
 
     public Booking Book( int userId, string categoryName, DateTime startDate, DateTime endDate, Currency currency )
     {
-        //Дата начала и конца бронирования не могут быть в один день
         if ( endDate <= startDate )
         {
             throw new ArgumentException( "End date cannot be earlier or equal than start date" );
@@ -72,14 +71,6 @@ public class BookingService : IBookingService
         Booking? booking = _bookings.FirstOrDefault( b => b.Id == bookingId );
         if ( booking == null )
         {
-            // Стоит ли в этом случае вообще создавать исключение. Мы же хотим, чтобы брони не существовало по итогу,
-            // а если её и не существет то смысл кидать ошибку, можно просто предупредить пользователя, что бронь уже удалена
-            // если оставить как есть, то при следующем сценарии будет ошибка:
-            // book (создаём бронирование)
-            // cancel удаляем её
-            // undo
-            // undo в этом месте будет ошибка, что бронь не найдена, так как программа завершила работу, из-за исключения
-            // действие из истории команд не удалилось и мы не можем отменить ранее выполненные команды
             Console.WriteLine( $"Booking with id: '{bookingId}' does not exist" );
             return;
         }
@@ -111,7 +102,6 @@ public class BookingService : IBookingService
 
         query = query.Where( b => b.StartDate >= startDate );
 
-        // При поиске по фильтрам дата учитывает не только start но и end.
         query = query.Where( b => b.EndDate <= endDate );
 
         if ( !string.IsNullOrEmpty( categoryName ) )
@@ -129,8 +119,6 @@ public class BookingService : IBookingService
             throw new ArgumentException( "Start date cannot be earlier than now date" );
         }
 
-        // Штраф теперь высчитывается правильно, без знака -
-        // Обработка ситуации, при отмены брони на завтрашний день
         int daysBeforeArrival = Math.Max( ( booking.StartDate - DateTime.Now ).Days, 1 );
 
         return 5000.0m / daysBeforeArrival;
@@ -152,7 +140,6 @@ public class BookingService : IBookingService
 
     private static decimal CalculateBookingCost( decimal baseRate, int days, int userId, decimal currencyRate )
     {
-        // Поправил ошибку с отицательной стоимостью бронирования
         decimal cost = baseRate / currencyRate * days;
         decimal totalCost = cost - cost * CalculateDiscount( userId );
         return totalCost;
