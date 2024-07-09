@@ -1,31 +1,30 @@
-﻿
-HelloMessage();
+﻿PrintHelloMessage();
 
 string productName = ReadProductName();
-int count = ReadPoductCount();
+int quantity = ReadPoductQuantity();
 string userName = ReadUserName();
 string address = ReadAddress();
 
-while ( !IsOrderConfirm( productName, count, userName, address ) )
+while ( !IsOrderConfirmed( productName, quantity, userName, address ) )
 {
     Console.WriteLine( "Хотите ввести данные о товаре ещё раз?" );
-    if ( !GetFromUserYesOrNot() )
+    if ( !IsReadConfirmed() )
     {
-        ExitMessage();
+        PrintExitMessage();
         return;
     }
 
     productName = ReadProductName();
-    count = ReadPoductCount();
+    quantity = ReadPoductQuantity();
     userName = ReadUserName();
     address = ReadAddress();
 }
 
-SuccessOrderMaking( productName, count, userName, address );
+PrintOrderConfirmedMessage( productName, quantity, userName, address );
 
-ExitMessage();
+PrintExitMessage();
 
-void HelloMessage()
+void PrintHelloMessage()
 {
     Console.WriteLine( "Здравуствуйте, вас приветствует сервис для создания заказов, давайте приступим к оформлению заказа." );
 }
@@ -45,18 +44,18 @@ static string ReadProductName()
     return productName;
 }
 
-static int ReadPoductCount()
+static int ReadPoductQuantity()
 {
     Console.Write( "Введите количество товара: " );
 
-    int count = 0;
-    while ( !int.TryParse( Console.ReadLine(), out count ) )
+    int quantity = 0;
+    while ( !int.TryParse( Console.ReadLine(), out quantity ) )
     {
         Console.Write( "Количество товара должно быть задано числом. Попробуйте ввести ещё раз: " );
     }
 
     Console.WriteLine();
-    return count;
+    return quantity;
 }
 
 static string ReadUserName()
@@ -89,15 +88,15 @@ static string ReadAddress()
     return address;
 }
 
-static bool IsOrderConfirm( string productName, int count, string userName, string address )
+static bool IsOrderConfirmed( string productName, int quantity, string userName, string address )
 {
-    Console.WriteLine( $"Здравствуйте, {userName}, вы заказали {productName} в количестве {count} на адрес {address}" );
+    Console.WriteLine( $"Здравствуйте, {userName}, вы заказали {productName} в количестве {quantity} на адрес {address}" );
     Console.WriteLine( "Всё верно?" );
 
-    return GetFromUserYesOrNot();
+    return IsReadConfirmed();
 }
 
-static bool GetFromUserYesOrNot()
+static bool IsReadConfirmed()
 {
     while ( true )
     {
@@ -120,14 +119,14 @@ static bool GetFromUserYesOrNot()
     }
 }
 
-static void SuccessOrderMaking( string productName, int count, string userName, string address )
+static void PrintOrderConfirmedMessage( string productName, int quantity, string userName, string address )
 {
-    Console.WriteLine( $"{userName}! Ваш заказ {productName} в количестве {count} оформлен!" );
+    Console.WriteLine( $"{userName}! Ваш заказ {productName} в количестве {quantity} оформлен!" );
     Console.WriteLine( $"Ожидайте доставку по адресу {address} к {DateTime.Today.AddDays( 3 ).ToString( "D" )}" );
     Console.WriteLine();
 }
 
-static void ExitMessage()
+static void PrintExitMessage()
 {
     Console.WriteLine( "Всего вам доброго! До свидания!" );
 }
