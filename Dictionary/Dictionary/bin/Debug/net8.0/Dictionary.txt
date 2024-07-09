@@ -1,8 +1,0 @@
-cat:кошка
-dog:собака
-house:дом
-clock:часы
-new:новый
-word:слово
-car:машина
-tree:дерево
