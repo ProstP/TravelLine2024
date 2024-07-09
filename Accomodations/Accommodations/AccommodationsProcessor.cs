@@ -1,5 +1,6 @@
 using Accommodations.Commands;
 using Accommodations.Dto;
+using Accommodations.Models;
 
 namespace Accommodations;
 
@@ -38,6 +39,7 @@ public static class AccommodationsProcessor
     {
         string[] parts = input.Split( ' ' );
         string commandName = parts[ 0 ];
+        DateTime startDate, endDate;
 
         switch ( commandName )
         {
@@ -48,14 +50,23 @@ public static class AccommodationsProcessor
                     return;
                 }
 
-                CurrencyDto currency = ( CurrencyDto )Enum.Parse( typeof( CurrencyDto ), parts[ 5 ], true );
+                // ѕроверка currency и выброс кастомизированного исключени€
+                CurrencyDto currency;
+                if ( !Enum.TryParse( parts[ 5 ], true, out currency ) )
+                {
+                    throw new ArgumentException( "Unknown currency." );
+                }
+
+                //обработка невалидных дат
+                ParseStrToDate( parts[ 3 ], out startDate );
+                ParseStrToDate( parts[ 4 ], out endDate );
 
                 BookingDto bookingDto = new()
                 {
                     UserId = int.Parse( parts[ 1 ] ),
                     Category = parts[ 2 ],
-                    StartDate = DateTime.Parse( parts[ 3 ] ),
-                    EndDate = DateTime.Parse( parts[ 4 ] ),
+                    StartDate = startDate,
+                    EndDate = endDate,
                     Currency = currency,
                 };
 
@@ -72,7 +83,9 @@ public static class AccommodationsProcessor
                     return;
                 }
 
-                Guid bookingId = Guid.Parse( parts[ 1 ] );
+                // ѕри попытке распарсить id выброс исключени€, которое можем обработать
+                Guid bookingId;
+                ParseStrToGuid( parts[ 1 ], out bookingId );
                 CancelBookingCommand cancelCommand = new( _bookingService, bookingId );
                 cancelCommand.Execute();
                 _executedCommands.Add( ++s_commandIndex, cancelCommand );
@@ -80,6 +93,13 @@ public static class AccommodationsProcessor
                 break;
 
             case "undo":
+                // проверка на пустую историю команд
+                if ( !_executedCommands.Any() )
+                {
+                    Console.WriteLine( "History of commands is empty" );
+                    break;
+                }
+
                 _executedCommands[ s_commandIndex ].Undo();
                 _executedCommands.Remove( s_commandIndex );
                 s_commandIndex--;
@@ -92,7 +112,9 @@ public static class AccommodationsProcessor
                     Console.WriteLine( "Invalid arguments for 'find'. Expected format: 'find <BookingId>'" );
                     return;
                 }
-                Guid id = Guid.Parse( parts[ 1 ] );
+                Guid id;
+                // ѕри попытке распарсить id выброс исключени€, которое можем обработать
+                ParseStrToGuid( parts[ 1 ], out id );
                 FindBookingByIdCommand findCommand = new( _bookingService, id );
                 findCommand.Execute();
                 break;
@@ -103,9 +125,10 @@ public static class AccommodationsProcessor
                     Console.WriteLine( "Invalid arguments for 'search'. Expected format: 'search <StartDate> <EndDate> <CategoryName>'" );
                     return;
                 }
-                DateTime startDate = DateTime.Parse( parts[ 1 ] );
-                DateTime endDate = DateTime.Parse( parts[ 2 ] );
                 string categoryName = parts[ 3 ];
+                //ќбработка невалидных дат
+                ParseStrToDate( parts[ 1 ], out startDate );
+                ParseStrToDate( parts[ 2 ], out endDate );
                 SearchBookingsCommand searchCommand = new( _bookingService, startDate, endDate, categoryName );
                 searchCommand.Execute();
                 break;
@@ -113,6 +136,24 @@ public static class AccommodationsProcessor
             default:
                 Console.WriteLine( "Unknown command." );
                 break;
+        }
+    }
+
+    //ћетод пытающийс€ распарсить строку в дату, в случае ошибки выбросит исключение, которое может быть обработано
+    private static void ParseStrToDate( string str, out DateTime date )
+    {
+        if ( !DateTime.TryParse( str, out date ) )
+        {
+            throw new ArgumentException( "Invalid date format." );
+        }
+    }
+
+    //ћетод пытающийс€ распарсить строку в guid, в случае ошибки выбросит исключение, которое может быть обработано
+    private static void ParseStrToGuid( string str, out Guid id )
+    {
+        if ( Guid.TryParse( str, out id ) )
+        {
+            throw new ArgumentException( "Invalid id" );
         }
     }
 }
