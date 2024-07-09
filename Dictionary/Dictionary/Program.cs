@@ -15,19 +15,26 @@ while ( userCommand != ExitCommand )
     userCommand = Console.ReadLine();
     Console.WriteLine();
 
-    switch ( userCommand )
+    try
     {
-        case GetTranslateCommand:
-            GetTranslateFromDictionary( dictionary );
-            break;
-        case AddNewTranslateCommand:
-            AddNewTranslateToDictionary( dictionary );
-            break;
-        case ExitCommand:
-            break;
-        default:
-            Console.WriteLine( "Unknown Command. Please try again." );
-            break;
+        switch ( userCommand )
+        {
+            case GetTranslateCommand:
+                GetTranslateFromDictionary( dictionary );
+                break;
+            case AddNewTranslateCommand:
+                AddNewTranslateToDictionary( dictionary );
+                break;
+            case ExitCommand:
+                break;
+            default:
+                Console.WriteLine( "Unknown Command. Please try again." );
+                break;
+        }
+    }
+    catch ( ArgumentException e )
+    {
+        Console.WriteLine( $"Error: {e.Message}" );
     }
     Console.WriteLine();
 }

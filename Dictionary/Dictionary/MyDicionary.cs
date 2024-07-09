@@ -2,7 +2,7 @@
 {
     class MyDictionary
     {
-        const string _fileNameWithDitionary = "Dictionary.txt";
+        const string _fileNameWithDiсtionary = "Dictionary.txt";
         private Dictionary<string, string> _dictionary;
 
         public MyDictionary()
@@ -16,8 +16,7 @@
             if ( _dictionary.ContainsKey( word ) || _dictionary.ContainsValue( translate )
                 || _dictionary.ContainsKey( translate ) || _dictionary.ContainsValue( word ) )
             {
-                Console.WriteLine( "Word or translate is already in the dictionary" );
-                return;
+                throw new ArgumentException( "Word or translate is already in the dictionary" );
             }
             _dictionary[ word ] = translate;
         }
@@ -38,31 +37,31 @@
 
         public void SaveDictionaryToFile()
         {
-            StreamWriter streamWriter = new StreamWriter( _fileNameWithDitionary );
-
-            foreach ( var pair in _dictionary )
+            using ( StreamWriter streamWriter = new StreamWriter( _fileNameWithDiсtionary ) )
             {
-                streamWriter.WriteLine( $"{pair.Key}:{pair.Value}" );
-            }
 
-            streamWriter.Close();
+                foreach ( var pair in _dictionary )
+                {
+                    streamWriter.WriteLine( $"{pair.Key}:{pair.Value}" );
+                }
+            }
         }
 
         private void ReadWordsAndTranslatesFromFile()
         {
-            StreamReader streamReader = new StreamReader( _fileNameWithDitionary );
-            string line = streamReader.ReadLine();
-
-            while ( line != null )
+            using ( StreamReader streamReader = new StreamReader( _fileNameWithDiсtionary ) )
             {
-                string[] words = line.Split( new char[] { ':' } );
+                string line = streamReader.ReadLine();
 
-                AddNewTranslate( words[ 0 ], words[ 1 ] );
+                while ( line != null )
+                {
+                    string[] words = line.Split( new char[] { ':' } );
 
-                line = streamReader.ReadLine();
+                    AddNewTranslate( words[ 0 ], words[ 1 ] );
+
+                    line = streamReader.ReadLine();
+                }
             }
-
-            streamReader.Close();
         }
     }
 }
