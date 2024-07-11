@@ -4,7 +4,7 @@ const string GetTranslateCommand = "1";
 const string AddNewTranslateCommand = "2";
 const string ExitCommand = "3";
 
-HelloMessage();
+PrintHelloMessage();
 
 string userCommand = "";
 var dictionary = new MyDictionary();
@@ -17,20 +17,7 @@ while ( userCommand != ExitCommand )
 
     try
     {
-        switch ( userCommand )
-        {
-            case GetTranslateCommand:
-                GetTranslateFromDictionary( dictionary );
-                break;
-            case AddNewTranslateCommand:
-                AddNewTranslateToDictionary( dictionary );
-                break;
-            case ExitCommand:
-                break;
-            default:
-                Console.WriteLine( "Unknown Command. Please try again." );
-                break;
-        }
+        ProcessCommand( userCommand, dictionary );
     }
     catch ( ArgumentException e )
     {
@@ -41,7 +28,7 @@ while ( userCommand != ExitCommand )
 
 dictionary.SaveDictionaryToFile();
 
-void HelloMessage()
+void PrintHelloMessage()
 {
     Console.WriteLine( "Hello! You in the dictionary app" );
     Console.WriteLine( "Please, choose what do you need?" );
@@ -53,6 +40,24 @@ void PrintMenu()
     Console.WriteLine( $"[{GetTranslateCommand}] Get Translate" );
     Console.WriteLine( $"[{AddNewTranslateCommand}] Add new translate" );
     Console.WriteLine( $"[{ExitCommand}] Save and exit" );
+}
+
+void ProcessCommand( string command, MyDictionary dictionary )
+{
+    switch ( command )
+    {
+        case GetTranslateCommand:
+            GetTranslateFromDictionary( dictionary );
+            break;
+        case AddNewTranslateCommand:
+            AddNewTranslateToDictionary( dictionary );
+            break;
+        case ExitCommand:
+            break;
+        default:
+            Console.WriteLine( "Unknown Command. Please try again." );
+            break;
+    }
 }
 
 void GetTranslateFromDictionary( MyDictionary myDictionary )
