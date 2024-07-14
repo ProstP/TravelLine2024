@@ -1,5 +1,5 @@
 ﻿using Fighters;
 
-var gameController = new GameController();
+var gameManager = new GameManager();
 
-gameController.Run();
+gameManager.Run();

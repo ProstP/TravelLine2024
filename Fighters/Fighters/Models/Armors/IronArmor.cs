@@ -3,5 +3,6 @@
     public class IronArmor : IArmor
     {
         public int Armor => 20;
+        public string Name => "Iron armor";
     }
 }

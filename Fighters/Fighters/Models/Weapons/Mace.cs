@@ -2,6 +2,8 @@
 {
     public class Mace : IWeapon
     {
-        public int Damage => 18;
+        public int Damage => 10;
+
+        public string Name => "Mace";
     }
 }

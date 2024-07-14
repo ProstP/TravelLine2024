@@ -11,6 +11,7 @@ namespace Fighters.Models.Fighters
         IWeapon Weapon { get; }
         IArmor Armor { get; }
         int CurrentHelth { get; }
+        string FighterType { get; }
 
         public int GetMaxHealth();
         public int CalculateDamage();
@@ -18,5 +19,8 @@ namespace Fighters.Models.Fighters
 
         public void TakeDamage( int damage );
         public bool IsAlive();
+        public void Recover();
+
+        public void Print();
     }
 }
