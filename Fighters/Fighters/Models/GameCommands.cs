@@ -6,7 +6,7 @@
         PrintAllFighters,
         Battle,
         RecoverAllFighters,
-        SwitchDamageRandomEnabled,
+        SwitchRandomDamageEnabled,
         SwitchCriticalDamageEnabled,
         Exit
     }

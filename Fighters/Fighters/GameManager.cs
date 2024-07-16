@@ -44,7 +44,7 @@ namespace Fighters
             Console.WriteLine( $"{( int )GameCommands.Battle}-Battle" );
             Console.WriteLine( $"{( int )GameCommands.RecoverAllFighters}-Recover all fighter" );
             string actionToRandomDamage = _isRandomDamageEnabled ? "Disable" : "Enable";
-            Console.WriteLine( $"{( int )GameCommands.SwitchDamageRandomEnabled}-{actionToRandomDamage} random damage" );
+            Console.WriteLine( $"{( int )GameCommands.SwitchRandomDamageEnabled}-{actionToRandomDamage} random damage" );
             string actionToCritiacalDamage = _isCriticalDamageEnabled ? "Disable" : "Enable";
             Console.WriteLine( $"{( int )GameCommands.SwitchCriticalDamageEnabled}-{actionToCritiacalDamage} critical damage" );
             Console.WriteLine( $"{( int )GameCommands.Exit}-Exit" );
@@ -67,7 +67,7 @@ namespace Fighters
                 case GameCommands.RecoverAllFighters:
                     RecoverAllFighters();
                     break;
-                case GameCommands.SwitchDamageRandomEnabled:
+                case GameCommands.SwitchRandomDamageEnabled:
                     _isRandomDamageEnabled = !_isRandomDamageEnabled;
                     break;
                 case GameCommands.SwitchCriticalDamageEnabled:
@@ -115,6 +115,7 @@ namespace Fighters
             {
                 throw new ArgumentException( "You need at least 2 fighters to fight" );
             }
+
             Console.WriteLine( "Please, select indexes of fighters (with space): " );
             string line = Console.ReadLine();
             string[] fighterIndexesStr = line.Split( new char[] { ' ' } );
