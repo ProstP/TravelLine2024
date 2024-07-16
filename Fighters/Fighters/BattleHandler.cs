@@ -22,17 +22,13 @@ namespace Fighters
 
                 if ( isDamageRandomEnabled )
                 {
-                    double modifierFirst = _random.NextDouble() * 0.5 - 0.2;
-                    double modifierSecond = _random.NextDouble() * 0.5 - 0.2;
-                    firstDamage += ( int )( firstDamage * modifierFirst );
-                    secondDamage += ( int )( secondDamage * modifierSecond );
+                    firstDamage += ( int )( firstDamage * CalculateDamageModifier() );
+                    secondDamage += ( int )( secondDamage * CalculateDamageModifier() );
                 }
                 if ( isCriticalDamageEnabled )
                 {
-                    double chanceToCriticalDamageFirst = _random.NextDouble();
-                    double chanceToCriticalDamageSecond = _random.NextDouble();
-                    firstDamage = chanceToCriticalDamageFirst > 0.1 ? firstDamage * 2 : firstDamage;
-                    secondDamage = chanceToCriticalDamageSecond > 0.1 ? secondDamage * 2 : secondDamage;
+                    firstDamage = IsCriticalDamage() ? firstDamage * 2 : firstDamage;
+                    secondDamage = IsCriticalDamage() ? secondDamage * 2 : secondDamage;
                 }
 
                 firstDamage = Math.Max( firstDamage - second.CalculateArmor(), 1 );
@@ -55,6 +51,16 @@ namespace Fighters
             {
                 return second;
             }
+        }
+
+        private static double CalculateDamageModifier()
+        {
+            return _random.NextDouble() * 0.5 - 0.2;
+        }
+
+        private static bool IsCriticalDamage()
+        {
+            return _random.NextDouble() > 0.1;
         }
     }
 }
