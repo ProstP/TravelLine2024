@@ -1,4 +1,5 @@
-﻿using Fighters.Models.Armors;
+﻿using System.Text;
+using Fighters.Models.Armors;
 using Fighters.Models.Races;
 using Fighters.Models.Weapons;
 
@@ -48,16 +49,18 @@ namespace Fighters.Models.Fighters
             return CurrentHelth > 0;
         }
 
-        public void Print()
+        public override string ToString()
         {
-            Console.WriteLine( $"{FighterType}" );
-            Console.WriteLine( $"Name: {Name}" );
-            Console.WriteLine( $"Race: {Race.Name}" );
-            Console.WriteLine( $"Weapon: {Weapon.Name}" );
-            Console.WriteLine( $"Armor: {Armor.Name}" );
-            Console.WriteLine( $"MaxHelth: {GetMaxHealth()}" );
-            Console.WriteLine( $"Helth: {CurrentHelth}" );
-            Console.WriteLine();
+            StringBuilder sb = new( 300 );
+            sb.AppendLine( $"{FighterType}" );
+            sb.AppendLine( $"   Name: {Name}" );
+            sb.AppendLine( $"   Race: {Race.Name}" );
+            sb.AppendLine( $"   Weapon: {Weapon.Name}" );
+            sb.AppendLine( $"   Armor: {Armor.Name}" );
+            sb.AppendLine( $"   Max helth: {GetMaxHealth()}" );
+            sb.AppendLine( $"   Helth: {CurrentHelth}" );
+
+            return sb.ToString();
         }
 
         public void Recover()

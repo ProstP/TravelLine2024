@@ -20,7 +20,5 @@ namespace Fighters.Models.Fighters
         public void TakeDamage( int damage );
         public bool IsAlive();
         public void Recover();
-
-        public void Print();
     }
 }

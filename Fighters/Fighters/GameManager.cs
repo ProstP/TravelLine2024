@@ -103,7 +103,7 @@ namespace Fighters
             for ( int i = 0; i < _fighters.Count; i++ )
             {
                 Console.WriteLine( $"{i}:" );
-                _fighters[ i ].Print();
+                Console.WriteLine( _fighters[ i ] );
                 Console.WriteLine();
             }
 
@@ -145,8 +145,8 @@ namespace Fighters
                 _isRandomDamageEnabled,
                 _isCriticalDamageEnabled );
 
-            Console.WriteLine( "Winer:" );
-            winner.Print();
+            Console.WriteLine( "Winner:" );
+            Console.WriteLine( winner );
         }
         private void RecoverAllFighters()
         {
