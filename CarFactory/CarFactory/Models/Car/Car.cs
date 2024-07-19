@@ -9,39 +9,54 @@ namespace CarFactory.Models.Car
 {
     public class Car : ICar
     {
-        public IBodyShape BodyShape { get; set; }
+        public string Name { get; }
+        public IBodyShape BodyShape { get; }
 
-        public ICarColor Color { get; set; }
+        public ICarColor Color { get; }
 
-        public IEngine Engine { get; set; }
+        public IEngine Engine { get; }
 
-        public ITransmission Transmission { get; set; }
+        public ITransmission Transmission { get; }
 
-        public SteeringPosition SteeringPosition { get; set; }
+        public SteeringPosition SteeringPosition { get; }
 
         public Car(
-            IBodyShape bodyShape,
-            ICarColor color,
+            string name,
             IEngine engine,
             ITransmission transmission,
+            IBodyShape bodyShape,
+            ICarColor color,
             SteeringPosition steeringPosition )
         {
-            BodyShape = bodyShape;
-            Color = color;
+            Name = name;
             Engine = engine;
             Transmission = transmission;
+            BodyShape = bodyShape;
+            Color = color;
             SteeringPosition = steeringPosition;
+        }
+
+        public int GetMaxSpeed()
+        {
+            return Engine.MaxSpeed;
+        }
+        public int GetGearsNum()
+        {
+            return Transmission.GearsNum;
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine( "Car:" );
-            sb.AppendLine( $"   Engine: {Engine.Name}" ); ;
-            sb.AppendLine( $"   Transmission: {Transmission.Name}" ); ;
-            sb.AppendLine( $"   Body shape: {BodyShape.Name}" ); ;
-            sb.AppendLine( $"   Color: {Color.Color}" ); ;
-            sb.AppendLine( $"   Transmission: {Transmission}" ); ;
+            sb.AppendLine( $"   Name: {Name}" );
+            sb.AppendLine( $"   Engine: {Engine.Name}" );
+            sb.AppendLine( $"   Transmission: {Transmission.Name}" );
+            sb.AppendLine( $"   Body shape: {BodyShape.Name}" );
+            sb.AppendLine( $"   Color: {Color.Color}" );
+            sb.AppendLine( $"   Steering position: {SteeringPosition}" );
+            sb.AppendLine( $"   Max speed: {GetMaxSpeed()}" );
+            sb.AppendLine( $"   Gears: {GetGearsNum()}" );
 
             return sb.ToString();
         }
