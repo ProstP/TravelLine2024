@@ -2,7 +2,7 @@
 {
     public interface ITransmission
     {
-        public string Name { get; }
-        public int GearsNum { get; }
+        string Name { get; }
+        int GearsNum { get; }
     }
 }

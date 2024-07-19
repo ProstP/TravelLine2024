@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.SteeringPositions
 {
-    enum SteeringPosition
+    public enum SteeringPosition
     {
         Left,
         Right

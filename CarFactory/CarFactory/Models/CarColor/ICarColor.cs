@@ -2,6 +2,6 @@
 {
     public interface ICarColor
     {
-        public string Color { get; }
+        string Color { get; }
     }
 }
