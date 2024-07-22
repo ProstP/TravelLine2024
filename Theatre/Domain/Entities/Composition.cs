@@ -9,6 +9,8 @@
 
         public int AuthorId { get; private init; }
 
+        public List<Play> Plays { get; private init; } = new();
+
         public Composition(
             string name,
             string shortDescription,

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 public class Theatre
 {
     public int Id { get; private init; }
@@ -15,6 +9,8 @@ public class Theatre
     public string PhoneNumber { get; private set; }
 
     public List<WorkingHours> WorkingHours { get; private set; } = new();
+
+    public List<Play> Plays { get; private set; } = new();
 
     public Theatre(
         string name,

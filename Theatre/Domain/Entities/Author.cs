@@ -7,6 +7,8 @@
         public string Surname { get; private init; }
         public DateTime Birthday { get; private init; }
 
+        public List<Composition> Compositions { get; private init; } = new();
+
         public Author(
             string name,
             string surname,

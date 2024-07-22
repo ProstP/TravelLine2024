@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entities
 {
     public class Play
     {
@@ -6,6 +8,7 @@
         public string Name { get; private init; }
         public DateTime StartTime { get; private init; }
         public DateTime EndTime { get; private init; }
+        [Column( TypeName = "money" )]
         public decimal TicketPrice { get; private init; }
         public string Description { get; private init; }
 
