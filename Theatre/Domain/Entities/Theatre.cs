@@ -15,13 +15,13 @@ public class Theatre
     public Theatre(
         string name,
         string address,
-        DateTime openningDate,
+        DateTime openingDate,
         string description,
         string phoneNumber )
     {
         Name = name;
         Address = address;
-        OpeningDate = openningDate;
+        OpeningDate = openingDate;
         Description = description;
         PhoneNumber = phoneNumber;
     }

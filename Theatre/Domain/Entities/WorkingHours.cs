@@ -9,9 +9,9 @@ namespace Domain.Entities
         public TimeOnly ClosingTime { get; private init; }
         // следующие 2 параметра обозначают с какого дня недели по какой данный режим работы действует
         // Например From = 0, а until = 4, получается с понедельника до пятницы, включительно
-        [Column( TypeName = "tinyint(6)" )]
+        [Column( TypeName = "tinyint" )]
         public byte ValidFrom { get; private init; }
-        [Column( TypeName = "tinyint(6)" )]
+        [Column( TypeName = "tinyint" )]
         public byte ValidUntil { get; private init; }
 
         public int TheaterId { get; private init; }
