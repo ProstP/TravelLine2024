@@ -17,8 +17,20 @@
             string charactersInfo,
             int authorId )
         {
+            if ( String.IsNullOrWhiteSpace( name ) )
+            {
+                throw new ArgumentException( $"{nameof( name )} can't be null or whitespace." );
+            }
             Name = name;
+            if ( String.IsNullOrWhiteSpace( shortDescription ) )
+            {
+                throw new ArgumentException( $"{nameof( shortDescription )} can't be null or whitespace." );
+            }
             ShortDescription = shortDescription;
+            if ( String.IsNullOrWhiteSpace( charactersInfo ) )
+            {
+                throw new ArgumentException( $"{nameof( charactersInfo )} can't be null or whitespace." );
+            }
             CharactersInfo = charactersInfo;
             AuthorId = authorId;
         }

@@ -24,11 +24,26 @@ namespace Domain.Entities
             int theatreId,
             int compositionId )
         {
+            if ( String.IsNullOrWhiteSpace( name ) )
+            {
+                throw new ArgumentException( $"{nameof( name )} can't be null or whitespace." );
+            }
             Name = name;
+
+            if ( ticketPrice < 0 )
+            {
+                throw new ArgumentException( $"{nameof( ticketPrice )} can't be negative." );
+            }
+            TicketPrice = ticketPrice;
+
+            if ( String.IsNullOrWhiteSpace( description ) )
+            {
+                throw new ArgumentException( $"{nameof( description )} can't be null or whitespace." );
+            }
+            Description = description;
+
             StartTime = startTime;
             EndTime = endTime;
-            TicketPrice = ticketPrice;
-            Description = description;
             TheatreId = theatreId;
             CompositionId = compositionId;
         }
