@@ -7,6 +7,7 @@
         public string Surname { get; private init; }
         public DateTime Birthday { get; private init; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public List<Composition> Compositions { get; private init; } = new();
 
         public Author(

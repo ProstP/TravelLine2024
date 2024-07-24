@@ -17,7 +17,12 @@ builder.Services.AddDbContext<TheaterDbContext>( options =>
     options.UseSqlServer( "Server=LAPTOP-U0R8E398\\SQLEXPRESS;Database=Theatre;Trusted_Connection=True;TrustServerCertificate=True;" );
 } );
 
-builder.Services.AddScoped( typeof( IRepository<> ), typeof( Repository<> ) );
+builder.Services.AddScoped( typeof( Domain.Repositories.IRepository<> ), typeof( Infrastructure.Foundation.Repository.Repository<> ) );
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<ICompostionRepository, CompositionRepository>();
+builder.Services.AddScoped<ITheatreRepository, TheatreRepository>();
+builder.Services.AddScoped<IWorkingHoursRepository, WorkingHoursRepository>();
+builder.Services.AddScoped<IPlayRepository, PlayRepository>();
 
 var app = builder.Build();
 

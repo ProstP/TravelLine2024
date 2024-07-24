@@ -9,6 +9,7 @@
 
         public int AuthorId { get; private init; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public List<Play> Plays { get; private init; } = new();
 
         public Composition(

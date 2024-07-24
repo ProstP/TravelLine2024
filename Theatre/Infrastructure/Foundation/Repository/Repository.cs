@@ -5,7 +5,7 @@ namespace Infrastructure.Foundation.Repository
     public class Repository<T> : IRepository<T>
         where T : class
     {
-        private readonly TheaterDbContext _dbContext;
+        protected readonly TheaterDbContext _dbContext;
 
         public Repository( TheaterDbContext dbContext )
         {
@@ -26,6 +26,7 @@ namespace Infrastructure.Foundation.Repository
         public void Remove( T item )
         {
             _dbContext.Set<T>().Remove( item );
+            _dbContext.SaveChanges();
         }
     }
 }

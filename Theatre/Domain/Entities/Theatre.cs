@@ -9,6 +9,8 @@ public class Theatre
     public string PhoneNumber { get; private set; }
 
     private List<WorkingHours> _workingHours = new();
+
+    [System.Text.Json.Serialization.JsonIgnore]
     public IReadOnlyList<WorkingHours> WorkingHours
     {
         get
@@ -17,6 +19,7 @@ public class Theatre
         }
     }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public List<Play> Plays { get; private set; } = new();
 
     public Theatre(
