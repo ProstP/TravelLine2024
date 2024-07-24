@@ -1,0 +1,9 @@
+﻿namespace Fighters.Models.Weapons
+{
+    public class Sword : IWeapon
+    {
+        public int Damage => 8;
+
+        public string Name => "Sword";
+    }
+}
