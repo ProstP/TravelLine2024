@@ -41,7 +41,7 @@ namespace UnitTests.DomainTests
             Assert.That( workingHours.ClosingTime, Is.EqualTo( _closingTime ) );
             Assert.That( workingHours.ValidFrom, Is.EqualTo( validFrom ) );
             Assert.That( workingHours.ValidUntil, Is.EqualTo( validUntil ) );
-            Assert.That( workingHours.TheaterId, Is.EqualTo( _theatreId ) );
+            Assert.That( workingHours.TheatreId, Is.EqualTo( _theatreId ) );
         }
 
         [Test]

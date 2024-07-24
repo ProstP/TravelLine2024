@@ -4,6 +4,7 @@ using Infrastructure.Foundation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(TheaterDbContext))]
-    partial class TheaterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724110600_CorrectKeyName")]
+    partial class CorrectKeyName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +176,7 @@ namespace Infrastructure.Migrations
                     b.Property<TimeOnly>("OpeningTime")
                         .HasColumnType("time");
 
-                    b.Property<int>("TheaterId")
+                    b.Property<int>("TheatreId")
                         .HasColumnType("int");
 
                     b.Property<byte>("ValidFrom")
@@ -184,7 +187,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TheaterId");
+                    b.HasIndex("TheatreId");
 
                     b.ToTable("WorkingHours", (string)null);
                 });
@@ -217,7 +220,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Theatre", null)
                         .WithMany("WorkingHours")
-                        .HasForeignKey("TheaterId")
+                        .HasForeignKey("TheatreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

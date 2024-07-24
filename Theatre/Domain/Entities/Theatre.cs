@@ -9,6 +9,13 @@ public class Theatre
     public string PhoneNumber { get; private set; }
 
     private List<WorkingHours> _workingHours = new();
+    public IReadOnlyList<WorkingHours> WorkingHours
+    {
+        get
+        {
+            return _workingHours;
+        }
+    }
 
     public List<Play> Plays { get; private set; } = new();
 
@@ -58,14 +65,6 @@ public class Theatre
         if ( !String.IsNullOrWhiteSpace( phoneNumber ) )
         {
             PhoneNumber = phoneNumber;
-        }
-    }
-
-    public IReadOnlyList<WorkingHours> WorkingHours
-    {
-        get
-        {
-            return _workingHours;
         }
     }
 

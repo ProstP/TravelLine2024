@@ -32,7 +32,7 @@ namespace Infrastructure.Foundation.EntityConfiguration
 
             builder.HasMany( t => t.WorkingHours )
                 .WithOne()
-                .HasForeignKey( wh => wh.TheaterId );
+                .HasForeignKey( wh => wh.TheatreId );
 
             builder.HasMany( t => t.Plays )
                 .WithOne()

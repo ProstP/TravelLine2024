@@ -15,7 +15,7 @@ namespace Domain.Entities
         [Column( TypeName = "tinyint" )]
         public byte ValidUntil { get; private init; }
 
-        public int TheaterId { get; private init; }
+        public int TheatreId { get; private init; }
 
         public WorkingHours(
             TimeOnly openingTime,
@@ -36,7 +36,7 @@ namespace Domain.Entities
                 throw new ArgumentException( $"{nameof( validUntil )} must be between 0 and 6." );
             }
             ValidUntil = validUntil;
-            TheaterId = theatreId;
+            TheatreId = theatreId;
         }
     }
 }
