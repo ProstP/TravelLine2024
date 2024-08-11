@@ -1,11 +1,32 @@
+import { Deck } from "./Deck";
+
 export type Application = {
-    type: string
+  decks: Deck[];
 };
 
-const Test = (type: string, app: Application) => {
-    return {...app,
-        type: type
-    }
+const AddNewDeck = (newDeck: Deck, app: Application): Application => {
+  if (app.decks.some(d => d.id === newDeck.id || d.name === newDeck.name)) {
+    return { ...app };
+  }
+
+  return {
+    decks: [...app.decks, newDeck],
+  };
 };
 
-export const Application = { Test };
+const DeleteDeck = (id: string, app: Application): Application => {
+  const index = app.decks.findIndex(d => d.id === id);
+
+  if (index === -1) {
+    return { ...app };
+  }
+
+  const newDecks = [...app.decks];
+  newDecks.splice(index, 1);
+
+  return {
+    decks: [...newDecks],
+  };
+};
+
+export const Application = { AddNewDeck, DeleteDeck };

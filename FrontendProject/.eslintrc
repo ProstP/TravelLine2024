@@ -1,0 +1,16 @@
+{
+  "extends":[
+    "airbnb-base",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+    "prettier/unicorn"
+  ],
+    "plugins": [
+      "prettier",
+      "unicorn"
+    ],
+    "env": {
+      "es6": true
+    }
+  }
