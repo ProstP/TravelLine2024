@@ -8,7 +8,7 @@ export type Deck = {
 
 const AddNewCard = (newCard: Card, deck: Deck): Deck => {
   if (deck.cards.some(c => c.id == newCard.id || c.word == newCard.word)) {
-    return { ...deck };
+    return deck;
   }
 
   return {
@@ -21,7 +21,7 @@ const DeleteCard = (id: string, deck: Deck): Deck => {
   const index = deck.cards.findIndex(c => c.id === id);
 
   if (index === -1) {
-    return { ...deck };
+    return deck;
   }
 
   const newCards = [...deck.cards];

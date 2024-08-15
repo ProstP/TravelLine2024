@@ -74,7 +74,7 @@ describe("DeleteDeck", () => {
     expect(Application.DeleteDeck("1", app)).not.toBe(app);
   });
 
-  it("doesn't delete wiith unknown id", () => {
+  it("doesn't delete with unknown id", () => {
     expect(Application.DeleteDeck("3", app)).toEqual(app);
   });
 

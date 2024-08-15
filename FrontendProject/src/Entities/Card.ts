@@ -6,9 +6,7 @@ export type Card = {
 
 const UpdateCard = (word: string, translation: string, card: Card) => {
   if (word === "" || translation === "") {
-    return {
-      ...card,
-    };
+    return card;
   }
   return {
     ...card,

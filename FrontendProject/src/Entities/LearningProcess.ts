@@ -14,7 +14,7 @@ const CreateLearningProcess = (cards: Card[]): LearningProcess => {
 
 const PutCardToCompited = (lp: LearningProcess): LearningProcess => {
   if (lp.cards.length == 0) {
-    return { ...lp };
+    return lp;
   }
 
   const newCards = [...lp.cards];
@@ -29,7 +29,7 @@ const PutCardToCompited = (lp: LearningProcess): LearningProcess => {
 
 const PutCardToDownTheDesk = (lp: LearningProcess): LearningProcess => {
   if (lp.cards.length === 0) {
-    return { ...lp };
+    return lp;
   }
   const newCards = [...lp.cards];
   const card = newCards[0];
