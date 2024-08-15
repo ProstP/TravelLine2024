@@ -4,7 +4,7 @@ export type Card = {
   translation: string;
 };
 
-const UpdateCard = (word: string, translation: string, card: Card) => {
+const EditCard = (word: string, translation: string, card: Card) => {
   if (word === "" || translation === "") {
     return card;
   }
@@ -15,4 +15,4 @@ const UpdateCard = (word: string, translation: string, card: Card) => {
   };
 };
 
-export const Card = { UpdateCard };
+export const Card = { EditCard };
