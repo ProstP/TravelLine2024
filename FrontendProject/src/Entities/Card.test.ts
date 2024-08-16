@@ -13,15 +13,15 @@ describe("EditCard", () => {
     expect(Card.EditCard("tree", "дерево", card)).toEqual(expected);
   });
 
-  it("return new card", () => {
+  it("return new card in success editing", () => {
     expect(Card.EditCard(card.word, card.translation, card)).not.toBe(card);
   });
 
-  it("doesn't update to empty word", () => {
+  it("editing with empty word return same object", () => {
     expect(Card.EditCard("", "дерево", card)).toEqual(card);
   });
 
-  it("doesn't update to empty translation", () => {
+  it("editing with empty translation return same object", () => {
     expect(Card.EditCard("tree", "", card)).toEqual(card);
   });
 });

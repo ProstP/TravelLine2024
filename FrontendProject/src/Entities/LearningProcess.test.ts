@@ -65,7 +65,7 @@ describe("PutCardToCompited", () => {
     expect(LearningProcess.PutCardToCompited(lp)).not.toBe(lp);
   });
 
-  it("getting from empty deck not change", () => {
+  it("getting from empty deck return same object", () => {
     const lpWithEmptyDeck = {
       cards: [],
       complited: [
@@ -76,8 +76,8 @@ describe("PutCardToCompited", () => {
         },
       ],
     };
-    
-    expect(LearningProcess.PutCardToCompited(lpWithEmptyDeck)).toEqual(lpWithEmptyDeck);
+
+    expect(LearningProcess.PutCardToCompited(lpWithEmptyDeck)).toBe(lpWithEmptyDeck);
   });
 
   it("success put card to complited", () => {
@@ -130,11 +130,11 @@ describe("PutCardToDownTheDesk", () => {
     ],
   };
 
-  it("return new Learning Process", () => {
+  it("return new Learning Process in success putting", () => {
     expect(LearningProcess.PutCardToDownTheDesk(lp)).not.toBe(lp);
   });
 
-  it("empty deck not change", () => {
+  it("getting in empty deck not return same object", () => {
     const lpWithEmptyDeck = {
       cards: [],
       complited: [
@@ -146,7 +146,7 @@ describe("PutCardToDownTheDesk", () => {
       ],
     };
 
-    expect(LearningProcess.PutCardToDownTheDesk(lpWithEmptyDeck)).toEqual(lpWithEmptyDeck);
+    expect(LearningProcess.PutCardToDownTheDesk(lpWithEmptyDeck)).toBe(lpWithEmptyDeck);
   });
 
   it("success put card to down the deck", () => {

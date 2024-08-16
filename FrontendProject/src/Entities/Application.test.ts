@@ -7,7 +7,7 @@ describe("AddNewDeck", () => {
   };
   const deck: Deck = { id: "1", name: "Some", cards: [] };
 
-  it("return new application", () => {
+  it("return new application in success adding", () => {
     expect(Application.AddNewDeck(deck, app)).not.toBe(app);
   });
 
@@ -46,14 +46,14 @@ describe("AddNewDeck", () => {
     expect(Application.AddNewDeck(newDeck, newApp)).toEqual(expected);
   });
 
-  it("doesn't add new deck with existing id", () => {
+  it("adding new deck with existing id return same object", () => {
     const newApp = Application.AddNewDeck(deck, app);
     const deckWithExistingId = { id: "1", name: "Another", cards: [] };
 
-    expect(Application.AddNewDeck(deckWithExistingId, newApp)).toEqual(newApp);
+    expect(Application.AddNewDeck(deckWithExistingId, newApp)).toBe(newApp);
   });
 
-  it("doesn't add new deck with existing name", () => {
+  it("adding new deck with existing name return same object", () => {
     const newApp = Application.AddNewDeck(deck, app);
     const deckWithExistingName = { id: "2", name: "Some", cards: [] };
 
@@ -77,12 +77,12 @@ describe("DeleteDeck", () => {
     ],
   };
 
-  it("return new Application", () => {
+  it("return new Application in success deleting", () => {
     expect(Application.DeleteDeck("1", app)).not.toBe(app);
   });
 
-  it("doesn't delete with unknown id", () => {
-    expect(Application.DeleteDeck("3", app)).toEqual(app);
+  it("deleting with unknown id return same object", () => {
+    expect(Application.DeleteDeck("3", app)).toBe(app);
   });
 
   it("success deleting", () => {
