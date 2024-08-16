@@ -2,6 +2,7 @@
 using Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Theatre.Contracts.Requests;
+using Theatre.Contracts.Responce;
 
 namespace Theatre.Controllers
 {
@@ -10,10 +11,12 @@ namespace Theatre.Controllers
     public class PlayController : ControllerBase
     {
         private IPlayRepository _playRepository;
+        private ITheatreRepository _theatreRepository;
 
-        public PlayController( IPlayRepository playRepository )
+        public PlayController( IPlayRepository playRepository, ITheatreRepository theatreRepository )
         {
             _playRepository = playRepository;
+            _theatreRepository = theatreRepository;
         }
 
         [HttpGet]
@@ -72,6 +75,32 @@ namespace Theatre.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost, Route( "date" )]
+        public IActionResult GetByDates( [FromBody] GetPlaysByDatesRequest request )
+        {
+            var plays = _playRepository.GetPlaysByDates( request.StartTime, request.EndTime );
+            List<GetPlaysByDatesResponce> theaters = new();
+
+            foreach ( var play in plays )
+            {
+                var theater = theaters.FirstOrDefault( t => t.Theatre.Id == play.TheatreId );
+
+                if ( theater == null )
+                {
+                    theater = new GetPlaysByDatesResponce();
+                    theater.Theatre = _theatreRepository.Get( play.TheatreId );
+                    theater.Plays.Add( play );
+                    theaters.Add( theater );
+                }
+                else
+                {
+                    theater.Plays.Add( play );
+                }
+            }
+
+            return Ok( theaters );
         }
     }
 }

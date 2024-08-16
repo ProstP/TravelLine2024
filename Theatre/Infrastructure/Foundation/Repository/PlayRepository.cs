@@ -24,5 +24,10 @@ namespace Infrastructure.Foundation.Repository
         {
             return _dbContext.Set<Play>().Where( p => p.TheatreId == theatreId ).ToList();
         }
+
+        public List<Play> GetPlaysByDates( DateTime startTime, DateTime endTime )
+        {
+            return _dbContext.Set<Play>().Where( p => startTime <= p.StartTime && p.EndTime <= endTime ).ToList();
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace Domain.Repositories
         List<Play> GetByTheatreId( int theatreId );
 
         List<Play> GetByCompositionId( int compositionId );
+
+        List<Play> GetPlaysByDates( DateTime startTime, DateTime endTime );
     }
 }
