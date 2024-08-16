@@ -12,7 +12,7 @@ describe("AddNewDeck", () => {
   });
 
   it("success add new deck to empty deck collection", () => {
-    expect(Application.AddNewDeck(deck, app)).toEqual({
+    const expected = {
       decks: [
         {
           id: "1",
@@ -20,12 +20,15 @@ describe("AddNewDeck", () => {
           cards: [],
         },
       ],
-    });
+    };
+
+    expect(Application.AddNewDeck(deck, app)).toEqual(expected);
   });
 
   it("success add new deck to down the collection", () => {
     const newApp = Application.AddNewDeck(deck, app);
-    expect(Application.AddNewDeck({ id: "2", name: "Not some", cards: [] }, newApp)).toEqual({
+    const newDeck = { id: "2", name: "Not some", cards: [] };
+    const expected = {
       decks: [
         {
           id: "1",
@@ -38,19 +41,23 @@ describe("AddNewDeck", () => {
           cards: [],
         },
       ],
-    });
+    };
+
+    expect(Application.AddNewDeck(newDeck, newApp)).toEqual(expected);
   });
 
   it("doesn't add new deck with existing id", () => {
     const newApp = Application.AddNewDeck(deck, app);
+    const deckWithExistingId = { id: "1", name: "Another", cards: [] };
 
-    expect(Application.AddNewDeck({ id: "1", name: "Another", cards: [] }, newApp)).toEqual(newApp);
+    expect(Application.AddNewDeck(deckWithExistingId, newApp)).toEqual(newApp);
   });
 
-  it("doesn't add new deck with existing id", () => {
+  it("doesn't add new deck with existing name", () => {
     const newApp = Application.AddNewDeck(deck, app);
+    const deckWithExistingName = { id: "2", name: "Some", cards: [] };
 
-    expect(Application.AddNewDeck({ id: "2", name: "Some", cards: [] }, newApp)).toEqual(newApp);
+    expect(Application.AddNewDeck(deckWithExistingName, newApp)).toEqual(newApp);
   });
 });
 
@@ -79,7 +86,7 @@ describe("DeleteDeck", () => {
   });
 
   it("success deleting", () => {
-    expect(Application.DeleteDeck("1", app)).toEqual({
+    const expected = {
       decks: [
         {
           id: "2",
@@ -87,6 +94,8 @@ describe("DeleteDeck", () => {
           cards: [],
         },
       ],
-    });
+    };
+
+    expect(Application.DeleteDeck("1", app)).toEqual(expected);
   });
 });

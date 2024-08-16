@@ -2,27 +2,29 @@ import { LearningProcess } from "./LearningProcess";
 
 describe("CreateLearningProcess", () => {
   it("create with empty", () => {
-    expect(LearningProcess.CreateLearningProcess([])).toEqual({
+    const emptyLp = LearningProcess.CreateLearningProcess([]);
+    const expected = {
       cards: [],
       complited: [],
-    });
+    };
+
+    expect(emptyLp).toEqual(expected);
   });
 
   it("crate with not empty", () => {
-    expect(
-      LearningProcess.CreateLearningProcess([
-        {
-          id: "1",
-          word: "tree",
-          translation: "дерево",
-        },
-        {
-          id: "2",
-          word: "new",
-          translation: "новый",
-        },
-      ]),
-    ).toEqual({
+    const notEmptyLp = LearningProcess.CreateLearningProcess([
+      {
+        id: "1",
+        word: "tree",
+        translation: "дерево",
+      },
+      {
+        id: "2",
+        word: "new",
+        translation: "новый",
+      },
+    ]);
+    const expected = {
       cards: [
         {
           id: "1",
@@ -36,7 +38,9 @@ describe("CreateLearningProcess", () => {
         },
       ],
       complited: [],
-    });
+    };
+
+    expect(notEmptyLp).toEqual(expected);
   });
 });
 
@@ -62,7 +66,7 @@ describe("PutCardToCompited", () => {
   });
 
   it("getting from empty deck not change", () => {
-    const newLp = {
+    const lpWithEmptyDeck = {
       cards: [],
       complited: [
         {
@@ -72,11 +76,12 @@ describe("PutCardToCompited", () => {
         },
       ],
     };
-    expect(LearningProcess.PutCardToCompited(newLp)).toEqual(newLp);
+    
+    expect(LearningProcess.PutCardToCompited(lpWithEmptyDeck)).toEqual(lpWithEmptyDeck);
   });
 
   it("success put card to complited", () => {
-    expect(LearningProcess.PutCardToCompited(lp)).toEqual({
+    const expected = {
       cards: [
         {
           id: "2",
@@ -91,7 +96,9 @@ describe("PutCardToCompited", () => {
           translation: "дерево",
         },
       ],
-    });
+    };
+
+    expect(LearningProcess.PutCardToCompited(lp)).toEqual(expected);
   });
 });
 
@@ -128,7 +135,7 @@ describe("PutCardToDownTheDesk", () => {
   });
 
   it("empty deck not change", () => {
-    const newLp = {
+    const lpWithEmptyDeck = {
       cards: [],
       complited: [
         {
@@ -138,11 +145,12 @@ describe("PutCardToDownTheDesk", () => {
         },
       ],
     };
-    expect(LearningProcess.PutCardToDownTheDesk(newLp)).toEqual(newLp);
+
+    expect(LearningProcess.PutCardToDownTheDesk(lpWithEmptyDeck)).toEqual(lpWithEmptyDeck);
   });
 
   it("success put card to down the deck", () => {
-    expect(LearningProcess.PutCardToDownTheDesk(lp)).toEqual({
+    const expected = {
       cards: [
         {
           id: "2",
@@ -167,6 +175,8 @@ describe("PutCardToDownTheDesk", () => {
           translation: "ручка",
         },
       ],
-    });
+    };
+
+    expect(LearningProcess.PutCardToDownTheDesk(lp)).toEqual(expected);
   });
 });

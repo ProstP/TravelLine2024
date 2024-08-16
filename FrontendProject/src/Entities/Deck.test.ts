@@ -10,16 +10,19 @@ describe("AddNewCard", () => {
   });
 
   it("add new card to empty deck", () => {
-    expect(Deck.AddNewCard(card, deck)).toEqual({
+    const expected = {
       id: "1",
       name: "Some",
       cards: [card],
-    });
+    };
+
+    expect(Deck.AddNewCard(card, deck)).toEqual(expected);
   });
 
   it("add new card to down of deck", () => {
     const newDeck = Deck.AddNewCard(card, deck);
-    expect(Deck.AddNewCard({ id: "2", word: "new", translation: "новый" }, newDeck)).toEqual({
+    const newCard = { id: "2", word: "new", translation: "новый" };
+    const expected = {
       id: "1",
       name: "Some",
       cards: [
@@ -34,19 +37,23 @@ describe("AddNewCard", () => {
           translation: "новый",
         },
       ],
-    });
+    };
+
+    expect(Deck.AddNewCard(newCard, newDeck)).toEqual(expected);
   });
 
   it("doesn't add card with existing id", () => {
     const newDeck = Deck.AddNewCard(card, deck);
+    const cardWithExistingId = { id: "1", word: "new", translation: "новый" };
 
-    expect(Deck.AddNewCard({ id: "1", word: "new", translation: "новый" }, newDeck)).toEqual(newDeck);
+    expect(Deck.AddNewCard(cardWithExistingId, newDeck)).toEqual(newDeck);
   });
 
   it("doesn't add card with existing name", () => {
     const newDeck = Deck.AddNewCard(card, deck);
+    const cardWithExistingName = { id: "2", word: "tree", translation: "другое дерево" };
 
-    expect(Deck.AddNewCard({ id: "2", word: "tree", translation: "другое дерево" }, newDeck)).toEqual(newDeck);
+    expect(Deck.AddNewCard(cardWithExistingName, newDeck)).toEqual(newDeck);
   });
 });
 
@@ -82,7 +89,7 @@ describe("DeleteCard", () => {
   });
 
   it("success deleting", () => {
-    expect(Deck.DeleteCard("1", deck)).toEqual({
+    const expected = {
       id: "1",
       name: "Some",
       cards: [
@@ -97,6 +104,8 @@ describe("DeleteCard", () => {
           translation: "ручка",
         },
       ],
-    });
+    };
+
+    expect(Deck.DeleteCard("1", deck)).toEqual(expected);
   });
 });

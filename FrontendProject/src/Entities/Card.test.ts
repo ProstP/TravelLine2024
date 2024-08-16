@@ -4,11 +4,13 @@ describe("EditCard", () => {
   const card: Card = { id: "1", word: "tree", translation: "дерво" };
 
   it("edit with right words", () => {
-    expect(Card.EditCard("tree", "дерево", card)).toEqual({
+    const expected = {
       id: "1",
       word: "tree",
       translation: "дерево",
-    });
+    };
+
+    expect(Card.EditCard("tree", "дерево", card)).toEqual(expected);
   });
 
   it("return new card", () => {
