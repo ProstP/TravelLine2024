@@ -4,12 +4,9 @@ export type Card = {
   translation: string;
 };
 
-const EditCard = (word: string, translation: string, card: Card) => {
-  if (word === "" || translation === "") {
-    return card;
-  }
+const EditCard = (word: string, translation: string, id: string) => {
   return {
-    ...card,
+    id: id,
     word: word,
     translation: translation,
   };
