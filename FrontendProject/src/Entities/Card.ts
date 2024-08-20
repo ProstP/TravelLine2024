@@ -4,9 +4,9 @@ export type Card = {
   translation: string;
 };
 
-const EditCard = (word: string, translation: string, id: string) => {
+const EditCard = (word: string, translation: string, card: Card) => {
   return {
-    id: id,
+    ...card,
     word: word,
     translation: translation,
   };

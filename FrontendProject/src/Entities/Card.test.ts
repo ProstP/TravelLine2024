@@ -10,18 +10,18 @@ describe("EditCard", () => {
       translation: "дерево",
     };
 
-    expect(Card.EditCard("tree", "дерево", card.id)).toEqual(expected);
+    expect(Card.EditCard("tree", "дерево", card)).toEqual(expected);
   });
 
   it("return new card in success editing", () => {
-    expect(Card.EditCard(card.word, card.translation, card.id)).not.toBe(card);
+    expect(Card.EditCard(card.word, card.translation, card)).not.toBe(card);
   });
 
   it("editing with empty word return object with empty word", () => {
-    expect(Card.EditCard("", "дерево", card.id).word).toEqual("");
+    expect(Card.EditCard("", "дерево", card).word).toEqual("");
   });
 
   it("editing with empty translation return object with empty translate", () => {
-    expect(Card.EditCard("tree", "", card.id).translation).toEqual("");
+    expect(Card.EditCard("tree", "", card).translation).toEqual("");
   });
 });
