@@ -12,7 +12,7 @@ const CreateLearningProcess = (cards: Card[]): LearningProcess => {
   };
 };
 
-const GetTopCardOfDeckAndPut = (lp: LearningProcess, targetToPut: "downToDeck" | "deckOfComplited") => {
+const GetTopCardOfDeckAndPut = (lp: LearningProcess, eraseAfterDrafting: boolean | undefined = undefined) => {
   if (lp.cards.length == 0) {
     return lp;
   }
@@ -21,7 +21,7 @@ const GetTopCardOfDeckAndPut = (lp: LearningProcess, targetToPut: "downToDeck" |
   const card = newCards[0];
   newCards.splice(0, 1);
 
-  if (targetToPut === "deckOfComplited") {
+  if (eraseAfterDrafting) {
     return {
       cards: [...newCards],
       complited: [...lp.complited, card],
@@ -35,11 +35,11 @@ const GetTopCardOfDeckAndPut = (lp: LearningProcess, targetToPut: "downToDeck" |
 };
 
 const PutCardToCompited = (lp: LearningProcess) => {
-  return GetTopCardOfDeckAndPut(lp, "deckOfComplited");
+  return GetTopCardOfDeckAndPut(lp, true);
 };
 
 const PutCardToDownTheDesk = (lp: LearningProcess) => {
-  return GetTopCardOfDeckAndPut(lp, "downToDeck");
+  return GetTopCardOfDeckAndPut(lp);
 };
 
 export const LearningProcess = { CreateLearningProcess, PutCardToCompited, PutCardToDownTheDesk };
