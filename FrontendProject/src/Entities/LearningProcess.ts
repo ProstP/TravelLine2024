@@ -26,12 +26,11 @@ const GetTopCardOfDeckAndPut = (lp: LearningProcess, eraseAfterDrafting: boolean
       cards: [...newCards],
       complited: [...lp.complited, card],
     };
-  } else {
-    return {
-      ...lp,
-      cards: [...newCards, card],
-    };
   }
+  return {
+    ...lp,
+    cards: [...newCards, card],
+  };
 };
 
 const PutCardToCompited = (lp: LearningProcess) => {
