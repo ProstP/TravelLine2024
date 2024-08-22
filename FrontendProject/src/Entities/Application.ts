@@ -2,6 +2,7 @@ import { Deck } from "./Deck";
 
 export type Application = {
   decks: Deck[];
+  deckCounter: number;
 };
 
 const AddNewDeck = (newDeck: Deck, app: Application): Application => {
@@ -9,7 +10,11 @@ const AddNewDeck = (newDeck: Deck, app: Application): Application => {
     return app;
   }
 
+  const newCounter = app.deckCounter + 1;
+
   return {
+    ...app,
+    deckCounter: newCounter,
     decks: [...app.decks, newDeck],
   };
 };
@@ -25,6 +30,7 @@ const DeleteDeck = (id: string, app: Application): Application => {
   newDecks.splice(index, 1);
 
   return {
+    ...app,
     decks: newDecks,
   };
 };

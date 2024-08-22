@@ -4,6 +4,7 @@ export type Deck = {
   id: string;
   name: string;
   cards: Card[];
+  cardCounter: number;
 };
 
 const AddNewCard = (newCard: Card, deck: Deck): Deck => {
@@ -11,8 +12,11 @@ const AddNewCard = (newCard: Card, deck: Deck): Deck => {
     return deck;
   }
 
+  const newCounter = deck.cardCounter + 1;
+
   return {
     ...deck,
+    cardCounter: newCounter,
     cards: [...deck.cards, newCard],
   };
 };
