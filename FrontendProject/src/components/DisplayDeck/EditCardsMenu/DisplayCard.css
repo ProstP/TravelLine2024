@@ -1,0 +1,27 @@
+.card {
+  width: 100%;
+  height: 100%;
+  background-color: greenyellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 11px;
+  border-radius: 20px;
+}
+
+.cardFieldName {
+  color: blue;
+}
+
+.cardField {
+  border: 2px gray;
+  border-radius: 15px;
+  background-color: white;
+  color: black;
+  padding: 0 10px;
+}
+
+.cardBtns {
+  width: 100%;
+}

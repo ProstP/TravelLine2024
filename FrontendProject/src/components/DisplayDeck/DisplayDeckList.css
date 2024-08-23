@@ -1,0 +1,27 @@
+.deckList {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.listOfDecks {
+  margin-top: 10vh;
+  width: 100%;
+  display: flex;
+  padding: 25px 0;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.elementOfList {
+  width: 30%;
+  height: 35vh;
+  margin: 40px;
+}

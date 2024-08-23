@@ -6,9 +6,9 @@ import { Card } from "../Entities/Card";
 type StoreData = {
   app: Application;
   actions: {
-    addDeck: (deck: Deck) => void;
+    addDeck: (name: string) => void;
     deleteDeck: (id: string) => void;
-    addCardToDeck: (card: Card, idDeck: string) => void;
+    addCardToDeck: (word: string, translation: string, idDeck: string) => void;
     deleteCardInDeck: (idCard: string, idDeck: string) => void;
     editCard: (word: string, translation: string, idCard: string, idDeck: string) => void;
   };
@@ -20,10 +20,18 @@ export const useStore = create<StoreData>((set, get) => ({
     deckCounter: 0,
   },
   actions: {
-    addDeck: (deck: Deck) => set({ ...get(), app: Application.AddNewDeck(deck, get().app) }),
+    addDeck: (name: string) =>
+      set({
+        ...get(),
+        app: Application.AddNewDeck(
+          { id: get().app.deckCounter + "Deck", name: name, cards: [], cardCounter: 0 },
+          get().app,
+        ),
+      }),
+
     deleteDeck: (id: string) => set({ ...get(), app: Application.DeleteDeck(id, get().app) }),
 
-    addCardToDeck(card, idDeck) {
+    addCardToDeck(word, translation, idDeck) {
       const app = { ...get().app };
       const decks = app.decks;
       const deckIndex = decks.findIndex(d => d.id === idDeck);
@@ -31,7 +39,10 @@ export const useStore = create<StoreData>((set, get) => ({
         return;
       }
 
-      decks[deckIndex] = Deck.AddNewCard(card, decks[deckIndex]);
+      decks[deckIndex] = Deck.AddNewCard(
+        { id: decks[deckIndex].cardCounter + "Card", word: word, translation: translation },
+        decks[deckIndex],
+      );
 
       set({
         ...get(),

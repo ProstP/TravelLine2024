@@ -1,0 +1,38 @@
+.deck {
+  width: 100%;
+  height: 100%;
+  background-color: skyblue;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15%;
+  justify-content: flex-end;
+}
+
+.btnsDeck {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btnDeck {
+  width: 33%;
+}
+
+.firstBtn {
+  border-bottom-left-radius: 50px;
+}
+
+.lastBtn {
+  border-bottom-right-radius: 50px;
+}
+
+h2 {
+  color: white;
+}
+
+p {
+  color: white;
+}
