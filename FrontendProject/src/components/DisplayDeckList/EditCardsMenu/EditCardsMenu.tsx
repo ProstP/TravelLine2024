@@ -7,7 +7,7 @@ type DisplayCardsProps = {
   deck: Deck;
 };
 
-const DisplayCards = ({ deck }: DisplayCardsProps) => {
+const List = ({ deck }: DisplayCardsProps) => {
   const { addCardToDeck } = useStore(state => state.actions);
 
   return (
@@ -27,11 +27,11 @@ const DisplayCards = ({ deck }: DisplayCardsProps) => {
 };
 
 type EditCardsMenuProps = {
-  closeMenuFn: () => void;
+  closeMenuVoid: () => void;
   idDeck: string;
 };
 
-const EditCardsMenu = ({ closeMenuFn, idDeck }: EditCardsMenuProps) => {
+const EditCardsMenu = ({ closeMenuVoid, idDeck }: EditCardsMenuProps) => {
   const deck = useStore(state => state.app.decks.find(d => d.id === idDeck)!);
 
   return (
@@ -39,13 +39,13 @@ const EditCardsMenu = ({ closeMenuFn, idDeck }: EditCardsMenuProps) => {
       <div className={styles.menu}>
         <div className={styles.header}>
           <h2 className={styles.name}>{deck.name}</h2>
-          <button className={styles.close} onClick={() => closeMenuFn()}>
+          <button className={styles.close} onClick={() => closeMenuVoid()}>
             Закрыть
           </button>
         </div>
         <hr className={styles.line} />
         <div className={styles.container}>
-          <DisplayCards deck={deck} />
+          <List deck={deck} />
         </div>
       </div>
     </div>

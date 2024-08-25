@@ -5,15 +5,13 @@ type LPHeaderProps = {
   exitVoid: () => void;
 };
 
-const LPHeader = ({ deckName, exitVoid }: LPHeaderProps) => {
-  return (
-    <div className={styles.header}>
-      <h3>{deckName}</h3>
-      <button onClick={() => exitVoid()} className={styles.btn}>
-        Выйти
-      </button>
-    </div>
-  );
-};
+const LPHeader = ({ deckName, exitVoid }: LPHeaderProps) => (
+  <div className={styles.header}>
+    <h3>{deckName}</h3>
+    <button onClick={() => exitVoid()} className={styles.btn}>
+      Выйти
+    </button>
+  </div>
+);
 
 export default LPHeader;

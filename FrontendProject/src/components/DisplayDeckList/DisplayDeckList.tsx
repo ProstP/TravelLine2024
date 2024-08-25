@@ -9,18 +9,18 @@ import { useStore } from "../../hooks/useStore";
 
 type ContentProps = {
   decks: Deck[];
-  selectDeckToLearnFn: (id: string) => void;
-  selectDeckToEditFn: (id: string) => void;
+  selectDeckToLearnVoid: (id: string) => void;
+  selectDeckToEditVoid: (id: string) => void;
 };
 
-const Content = ({ decks, selectDeckToLearnFn, selectDeckToEditFn }: ContentProps) => (
+const List = ({ decks, selectDeckToLearnVoid, selectDeckToEditVoid }: ContentProps) => (
   <ul className={styles.list}>
     {decks.map(deck => (
       <li key={deck.id} className={styles.element}>
         <DisplayDeck
           deck={deck}
-          selectDeckToLearnFn={() => selectDeckToLearnFn(deck.id)}
-          selectDeckToEditCards={() => selectDeckToEditFn(deck.id)}
+          selectDeckToLearnFn={() => selectDeckToLearnVoid(deck.id)}
+          selectDeckToEditCards={() => selectDeckToEditVoid(deck.id)}
         />
       </li>
     ))}
@@ -28,10 +28,10 @@ const Content = ({ decks, selectDeckToLearnFn, selectDeckToEditFn }: ContentProp
 );
 
 type DeckListProps = {
-  selectDeckToLearnFn: (id: string) => void;
+  selectDeckToLearnVoid: (id: string) => void;
 };
 
-const DeckList = ({ selectDeckToLearnFn }: DeckListProps) => {
+const DisplayDeckList = ({ selectDeckToLearnVoid }: DeckListProps) => {
   const [createDeckVisible, setCreateDeckVisible] = useState(false);
   const [selectedDeckToEdit, setDeckToEdit] = useState("");
   const list = useStore(state => state.app.decks);
@@ -42,18 +42,18 @@ const DeckList = ({ selectDeckToLearnFn }: DeckListProps) => {
 
   return (
     <div className={styles.container}>
-      {createDeckVisible ? <CreateDeckMenu closeMenuFn={() => setCreateDeckVisible(false)} /> : null}
+      {createDeckVisible ? <CreateDeckMenu closeMenuVoid={() => setCreateDeckVisible(false)} /> : null}
       {selectedDeckToEdit !== "" ? (
-        <EditCardsMenu closeMenuFn={() => setDeckToEdit("")} idDeck={selectedDeckToEdit} />
+        <EditCardsMenu closeMenuVoid={() => setDeckToEdit("")} idDeck={selectedDeckToEdit} />
       ) : null}
       <DeckListHeader openCreateDeckMenu={() => setCreateDeckVisible(true)} />
-      <Content
+      <List
         decks={list}
-        selectDeckToLearnFn={selectDeckToLearnFn}
-        selectDeckToEditFn={(id: string) => setDeckToEdit(id)}
+        selectDeckToLearnVoid={selectDeckToLearnVoid}
+        selectDeckToEditVoid={(id: string) => setDeckToEdit(id)}
       />
     </div>
   );
 };
 
-export default DeckList;
+export default DisplayDeckList;
