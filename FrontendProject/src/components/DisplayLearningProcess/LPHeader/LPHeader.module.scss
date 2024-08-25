@@ -1,13 +1,15 @@
-.topPanel {
+.header {
   position: fixed;
   width: 100%;
-  height: 10vh;
+  height: 10%;
+  top: 0;
   background-color: rgba(33, 33, 33, 0.9);
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+  gap: 70%;
   align-items: center;
 }
 
-.title {
-  color: white;
+.btn {
+  margin-right: 3%;
 }

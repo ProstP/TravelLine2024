@@ -1,6 +1,6 @@
 import { Deck } from "../../Entities/Deck";
 import { useStore } from "../../hooks/useStore";
-import "./DisplayDeck.css";
+import styles from "./DisplayDeck.module.scss";
 
 type DisplayDeckProps = {
   deck: Deck;
@@ -12,17 +12,17 @@ const DisplayDeck = ({ deck, selectDeckToLearnFn, selectDeckToEditCards }: Displ
   const { deleteDeck } = useStore(state => state.actions);
 
   return (
-    <div className="deck">
-      <h2>{deck.name}</h2>
-      <p>Количество карт: {deck.cards.length}</p>
-      <div className="btnsDeck">
-        <button className="btnDeck firstBtn" style={{ backgroundColor: "lime" }} onClick={() => selectDeckToLearnFn}>
+    <div className={styles.deck}>
+      <h2 className={styles.title}>{deck.name}</h2>
+      <p className={styles.count}>Количество карт: {deck.cards.length}</p>
+      <div className={styles.btns}>
+        <button className={styles.start} onClick={() => selectDeckToLearnFn()}>
           Начать
         </button>
-        <button className="btnDeck" style={{ backgroundColor: "red" }} onClick={() => deleteDeck(deck.id)}>
+        <button className={styles.delete} onClick={() => deleteDeck(deck.id)}>
           Удалить
         </button>
-        <button className="btnDeck lastBtn" style={{ backgroundColor: "grey" }} onClick={() => selectDeckToEditCards()}>
+        <button className={styles.edit} onClick={() => selectDeckToEditCards()}>
           Редактировать
         </button>
       </div>

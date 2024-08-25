@@ -1,4 +1,4 @@
-.menuBackground {
+@mixin darkenedBackground {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -9,7 +9,11 @@
   justify-content: center;
 }
 
-.createDeckMenu {
+.background {
+  @include darkenedBackground();
+}
+
+.menu {
   margin-top: 10%;
   width: 40%;
   height: 40%;
@@ -21,21 +25,37 @@
   justify-content: space-around;
 }
 
-.nameField {
+.title {
+  color: darkturquoise;
+  text-align: center;
+}
+
+.field {
   background-color: lightblue;
   color: black;
   border: 0;
   height: 20px;
   border-radius: 5px;
+  height: 10%;
+  width: 40%;
+  text-align: center;
 }
 
-.btnsCreateDeck {
+.btns {
   width: 80%;
   display: flex;
   justify-content: space-evenly;
 }
 
-.btnCreateDeck {
-  background-color: gray;
+@mixin btn($color: grey) {
+  background-color: $color;
   width: 30%;
+}
+
+.cancel {
+  @include btn(red);
+}
+
+.add {
+  @include btn(lime);
 }

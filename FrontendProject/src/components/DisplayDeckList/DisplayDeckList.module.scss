@@ -1,4 +1,4 @@
-.deckList {
+.container {
   position: absolute;
   width: 100%;
   top: 0;
@@ -10,7 +10,7 @@ ul {
   list-style-type: none;
 }
 
-.listOfDecks {
+.list {
   margin-top: 10vh;
   width: 100%;
   display: flex;
@@ -20,7 +20,7 @@ ul {
   flex-wrap: wrap;
 }
 
-.elementOfList {
+.element {
   width: 30%;
   height: 35vh;
   margin: 40px;

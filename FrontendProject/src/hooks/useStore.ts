@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Application } from "../Entities/Application";
 import { Deck } from "../Entities/Deck";
 import { Card } from "../Entities/Card";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type StoreData = {
   app: Application;
@@ -14,77 +15,89 @@ type StoreData = {
   };
 };
 
-export const useStore = create<StoreData>((set, get) => ({
-  app: {
-    decks: [],
-    deckCounter: 0,
-  },
-  actions: {
-    addDeck: (name: string) =>
-      set({
-        ...get(),
-        app: Application.AddNewDeck(
-          { id: get().app.deckCounter + "Deck", name: name, cards: [], cardCounter: 0 },
-          get().app,
-        ),
-      }),
+export const useStore = create<StoreData>()(
+  persist(
+    (set, get) => ({
+      app: {
+        decks: [],
+        deckCounter: 0,
+      },
+      actions: {
+        addDeck: (name: string) =>
+          set({
+            ...get(),
+            app: Application.AddNewDeck(
+              { id: get().app.deckCounter + "Deck", name: name, cards: [], cardCounter: 0 },
+              get().app,
+            ),
+          }),
 
-    deleteDeck: (id: string) => set({ ...get(), app: Application.DeleteDeck(id, get().app) }),
+        deleteDeck: (id: string) => set({ ...get(), app: Application.DeleteDeck(id, get().app) }),
 
-    addCardToDeck(word, translation, idDeck) {
-      const app = { ...get().app };
-      const decks = app.decks;
-      const deckIndex = decks.findIndex(d => d.id === idDeck);
-      if (deckIndex === -1) {
-        return;
-      }
+        addCardToDeck(word, translation, idDeck) {
+          const app = { ...get().app };
+          const decks = app.decks;
+          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          if (deckIndex === -1) {
+            return;
+          }
 
-      decks[deckIndex] = Deck.AddNewCard(
-        { id: decks[deckIndex].cardCounter + "Card", word: word, translation: translation },
-        decks[deckIndex],
-      );
+          decks[deckIndex] = Deck.AddNewCard(
+            { id: decks[deckIndex].cardCounter + "Card", word: word, translation: translation },
+            decks[deckIndex],
+          );
 
-      set({
-        ...get(),
-        app: app,
-      });
+          set({
+            ...get(),
+            app: app,
+          });
+        },
+        deleteCardInDeck(idCard, idDeck) {
+          const app = { ...get().app };
+          const decks = app.decks;
+          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          if (deckIndex === -1) {
+            return;
+          }
+
+          decks[deckIndex] = Deck.DeleteCard(idCard, decks[deckIndex]);
+
+          set({
+            ...get(),
+            app: app,
+          });
+        },
+
+        editCard(word, translation, idCard, idDeck) {
+          const store = get();
+          const decks = [...store.app.decks];
+          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          if (deckIndex === -1) {
+            return;
+          }
+
+          const deck = decks[deckIndex];
+          const cardIndex = deck.cards.findIndex(c => c.id === idCard);
+          if (cardIndex === -1) {
+            return;
+          }
+
+          deck.cards[cardIndex] = Card.EditCard(word, translation, deck.cards[cardIndex]);
+
+          set({
+            ...store,
+            app: {
+              ...store.app,
+              decks: [...decks],
+            },
+          });
+        },
+      },
+    }),
+    {
+      name: "tanya-zustand-example",
+      storage: createJSONStorage(() => localStorage),
+      partialize: state => ({ ...state, actions: undefined }),
     },
-    deleteCardInDeck(idCard, idDeck) {
-      const app = { ...get().app };
-      const decks = app.decks;
-      const deckIndex = decks.findIndex(d => d.id === idDeck);
-      if (deckIndex === -1) {
-        return;
-      }
-
-      decks[deckIndex] = Deck.DeleteCard(idCard, decks[deckIndex]);
-
-      set({
-        ...get(),
-        app: app,
-      });
-    },
-
-    editCard(word, translation, idCard, idDeck) {
-      const app = { ...get().app };
-      const decks = app.decks;
-      const deckIndex = decks.findIndex(d => d.id === idDeck);
-      if (deckIndex === -1) {
-        return;
-      }
-
-      const deck = decks[deckIndex];
-      const cardIndex = deck.cards.findIndex(c => c.id === idCard);
-      if (cardIndex === -1) {
-        return;
-      }
-
-      deck.cards[cardIndex] = Card.EditCard(word, translation, deck.cards[cardIndex]);
-
-      set({
-        ...get(),
-        app: app,
-      });
-    },
-  },
-}));
+  ),
+);
