@@ -16,7 +16,6 @@ const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
 
   return (
     <div className={styles.container}>
-      {lp.cards.length === 0 ? <DeckCompletedMessage exit={exit} /> : null}
       <Header deckName={deck.name} exit={exit} />
       <div className={styles.decks}>
         <div className={styles.deck}>
@@ -31,6 +30,7 @@ const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
         rightAns={() => setLp(LearningProcessType.PutCardToCompited(lp))}
         mistake={() => setLp(LearningProcessType.PutCardToDownTheDesk(lp))}
       />
+      {lp.cards.length === 0 ? <DeckCompletedMessage exit={exit} /> : null}
     </div>
   );
 };
