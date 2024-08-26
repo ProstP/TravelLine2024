@@ -26,10 +26,7 @@ export const useStore = create<StoreData>()(
         addDeck: (name: string) =>
           set({
             ...get(),
-            app: Application.AddNewDeck(
-              { id: get().app.deckCounter + "Deck", name: name, cards: [], cardCounter: 0 },
-              get().app,
-            ),
+            app: Application.AddNewDeck({ id: Math.random() + "Deck", name: name, cards: [] }, get().app),
           }),
 
         deleteDeck: (id: string) => set({ ...get(), app: Application.DeleteDeck(id, get().app) }),
@@ -43,7 +40,7 @@ export const useStore = create<StoreData>()(
           }
 
           decks[deckIndex] = Deck.AddNewCard(
-            { id: decks[deckIndex].cardCounter + "Card", word: word, translation: translation },
+            { id: Math.random() + "Card", word: word, translation: translation },
             decks[deckIndex],
           );
 
@@ -69,6 +66,8 @@ export const useStore = create<StoreData>()(
         },
 
         editCard(word, translation, idCard, idDeck) {
+          console.log(idCard);
+
           const store = get();
           const decks = [...store.app.decks];
           const deckIndex = decks.findIndex(d => d.id === idDeck);

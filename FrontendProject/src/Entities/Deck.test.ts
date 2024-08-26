@@ -2,7 +2,7 @@ import { Card } from "./Card";
 import { Deck } from "./Deck";
 
 describe("AddNewCard", () => {
-  const deck: Deck = { id: "1", name: "Some", cards: [], cardCounter: 0 };
+  const deck: Deck = { id: "1", name: "Some", cards: [] };
   const card: Card = { id: "1", word: "tree", translation: "дерево" };
 
   it("return new deck in success adding", () => {
@@ -14,7 +14,6 @@ describe("AddNewCard", () => {
       id: "1",
       name: "Some",
       cards: [card],
-      cardCounter: 1,
     };
 
     expect(Deck.AddNewCard(card, deck)).toEqual(expected);
@@ -38,7 +37,6 @@ describe("AddNewCard", () => {
           translation: "новый",
         },
       ],
-      cardCounter: 2,
     };
 
     expect(Deck.AddNewCard(newCard, newDeck)).toEqual(expected);
@@ -80,7 +78,6 @@ describe("DeleteCard", () => {
         translation: "ручка",
       },
     ],
-    cardCounter: 3,
   };
 
   it("return equal object if nothing to delete", () => {
@@ -103,7 +100,6 @@ describe("DeleteCard", () => {
           translation: "ручка",
         },
       ],
-      cardCounter: 3,
     };
 
     expect(Deck.DeleteCard("1", deck)).toEqual(expected);
