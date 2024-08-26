@@ -18,17 +18,11 @@ const AddNewCard = (newCard: Card, deck: Deck): Deck => {
 };
 
 const DeleteCard = (id: string, deck: Deck): Deck => {
-  const index = deck.cards.findIndex(c => c.id === id);
+  const newCards = deck.cards.filter(c => c.id !== id);
 
-  if (index === -1) {
-    return deck;
-  }
-
-  const newCards = [...deck.cards];
-  newCards.splice(index, 1);
   return {
     ...deck,
-    cards: [...newCards],
+    cards: newCards,
   };
 };
 
