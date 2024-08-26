@@ -1,13 +1,13 @@
 import { Card } from "../../../Entities/Card";
 import { useStore } from "../../../hooks/useStore";
-import styles from "./DisplayCardToEdit.module.scss";
+import styles from "./CardToEdit.module.scss";
 
-type DisplayCardProps = {
+type CardToEditProps = {
   card: Card;
   idDeck: string;
 };
 
-const DisplayCardToEdit = ({ card, idDeck }: DisplayCardProps) => {
+const CardToEdit = ({ card, idDeck }: CardToEditProps) => {
   const { editCard, deleteCardInDeck } = useStore(state => state.actions);
 
   return (
@@ -31,4 +31,4 @@ const DisplayCardToEdit = ({ card, idDeck }: DisplayCardProps) => {
   );
 };
 
-export default DisplayCardToEdit;
+export default CardToEdit;

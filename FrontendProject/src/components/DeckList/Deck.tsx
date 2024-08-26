@@ -1,14 +1,14 @@
-import { Deck } from "../../Entities/Deck";
+import { Deck as DeckType } from "../../Entities/Deck";
 import { useStore } from "../../hooks/useStore";
-import styles from "./DisplayDeck.module.scss";
+import styles from "./Deck.module.scss";
 
 type DisplayDeckProps = {
-  deck: Deck;
-  selectDeckToLearnFn: () => void;
+  deck: DeckType;
+  selectDeckToLearn: () => void;
   selectDeckToEditCards: () => void;
 };
 
-const DisplayDeck = ({ deck, selectDeckToLearnFn, selectDeckToEditCards }: DisplayDeckProps) => {
+const Deck = ({ deck, selectDeckToLearn, selectDeckToEditCards }: DisplayDeckProps) => {
   const { deleteDeck } = useStore(state => state.actions);
 
   return (
@@ -16,7 +16,7 @@ const DisplayDeck = ({ deck, selectDeckToLearnFn, selectDeckToEditCards }: Displ
       <h2 className={styles.title}>{deck.name}</h2>
       <p className={styles.count}>Количество карт: {deck.cards.length}</p>
       <div className={styles.btns}>
-        <button className={styles.start} onClick={() => selectDeckToLearnFn()}>
+        <button className={styles.start} onClick={() => selectDeckToLearn()}>
           Начать
         </button>
         <button className={styles.delete} onClick={() => deleteDeck(deck.id)}>
@@ -30,4 +30,4 @@ const DisplayDeck = ({ deck, selectDeckToLearnFn, selectDeckToEditCards }: Displ
   );
 };
 
-export default DisplayDeck;
+export default Deck;

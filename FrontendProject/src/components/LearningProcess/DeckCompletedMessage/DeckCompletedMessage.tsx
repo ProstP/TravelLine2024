@@ -1,14 +1,14 @@
 import styles from "./DeckCompletedMessage.module.scss";
 
 type DeckCompletedMessageProps = {
-  exitVoid: () => void;
+  exit: () => void;
 };
 
-const DeckCompletedMessage = ({ exitVoid }: DeckCompletedMessageProps) => (
+const DeckCompletedMessage = ({ exit }: DeckCompletedMessageProps) => (
   <div className={styles.background}>
     <div className={styles.menu}>
       <p className={styles.message}>Поздравляю, вы завершили успешно все карточки из данного набора</p>
-      <button className={styles.btn} onClick={() => exitVoid()}>
+      <button className={styles.btn} onClick={() => exit()}>
         Выход
       </button>
     </div>

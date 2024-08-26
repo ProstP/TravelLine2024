@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DisplayDeckList from "./components/DisplayDeckList/DisplayDeckList";
+import DeckList from "./components/DeckList/DeckList";
 import { useStore } from "./hooks/useStore";
-import DisplayLearningProcess from "./components/DisplayLearningProcess/DisplayLearningProcess";
+import LearningProcess from "./components/LearningProcess/LearningProcess";
 
 const Content = () => {
   const [selectedDeckToLearn, setDeckToLearn] = useState("");
@@ -10,9 +10,9 @@ const Content = () => {
   return (
     <>
       {deck === undefined ? (
-        <DisplayDeckList selectDeckToLearnVoid={setDeckToLearn} />
+        <DeckList selectDeckToLearn={setDeckToLearn} />
       ) : (
-        <DisplayLearningProcess deck={deck} exitVoid={() => setDeckToLearn("")} />
+        <LearningProcess deck={deck} exit={() => setDeckToLearn("")} />
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import { Deck } from "../../../Entities/Deck";
 import { useStore } from "../../../hooks/useStore";
-import DisplayCardToEdit from "./DisplayCardToEdit";
+import CardToEdit from "./CardToEdit";
 import styles from "./EditCardsMenu.module.scss";
 
 type DisplayCardsProps = {
@@ -14,7 +14,7 @@ const List = ({ deck }: DisplayCardsProps) => {
     <ul className={styles.list}>
       {deck.cards.map(c => (
         <li className={styles.element}>
-          <DisplayCardToEdit card={c} idDeck={deck.id} />
+          <CardToEdit card={c} idDeck={deck.id} />
         </li>
       ))}
       <li className={styles.element}>

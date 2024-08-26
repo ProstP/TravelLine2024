@@ -1,14 +1,14 @@
-import styles from "./DeckListHeader.module.scss";
+import styles from "./Header.module.scss";
 
-type TopPanelProps = {
+type HeaderProps = {
   openCreateDeckMenu: () => void;
 };
 
-const DeckListHeader = ({ openCreateDeckMenu }: TopPanelProps) => (
+const Header = ({ openCreateDeckMenu }: HeaderProps) => (
   <div className={styles.container}>
     <h2 className={styles.title}>Learning application</h2>
     <button onClick={() => openCreateDeckMenu()}>Создать новый набор</button>
   </div>
 );
 
-export default DeckListHeader;
+export default Header;

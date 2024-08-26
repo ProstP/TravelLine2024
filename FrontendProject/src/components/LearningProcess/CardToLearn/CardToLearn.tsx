@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Card } from "../../../Entities/Card";
-import styles from "./DisplayCardToLearn.module.scss";
+import styles from "./CardToLearn.module.scss";
 
-type DisplayCardToLearnProps = {
+type CardToLearnProps = {
   card: Card;
   rightAns: () => void;
   mistake: () => void;
 };
 
-const DisplayCardToLearn = ({ card, rightAns, mistake }: DisplayCardToLearnProps) => {
+const CardToLearn = ({ card, rightAns, mistake }: CardToLearnProps) => {
   const [isTranslationHide, setTranslationHide] = useState(true);
 
   return (
@@ -31,4 +31,4 @@ const DisplayCardToLearn = ({ card, rightAns, mistake }: DisplayCardToLearnProps
   );
 };
 
-export default DisplayCardToLearn;
+export default CardToLearn;

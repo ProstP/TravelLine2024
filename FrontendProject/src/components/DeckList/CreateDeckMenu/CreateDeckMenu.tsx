@@ -3,10 +3,10 @@ import { useStore } from "../../../hooks/useStore";
 import styles from "./CreateDeckMenu.module.scss";
 
 type CreateDeckMenuProps = {
-  closeMenuVoid: () => void;
+  closeMenu: () => void;
 };
 
-const CreateDeckMenu = ({ closeMenuVoid }: CreateDeckMenuProps) => {
+const CreateDeckMenu = ({ closeMenu }: CreateDeckMenuProps) => {
   const [name, setName] = useState("");
   const { addDeck } = useStore(state => state.actions);
 
@@ -19,7 +19,7 @@ const CreateDeckMenu = ({ closeMenuVoid }: CreateDeckMenuProps) => {
           <button className={styles.add} onClick={() => addDeck(name)}>
             Добавить
           </button>
-          <button className={styles.cancel} onClick={() => closeMenuVoid()}>
+          <button className={styles.cancel} onClick={() => closeMenu()}>
             Отмена
           </button>
         </div>
