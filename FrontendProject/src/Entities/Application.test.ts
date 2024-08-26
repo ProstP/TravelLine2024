@@ -82,6 +82,11 @@ describe("DeleteDeck", () => {
         cards: [],
         cardCounter: 0,
       },
+      {
+        id: "3",
+        name: "Smth",
+        cards: [],
+      },
     ],
     deckCounter: 2,
   };
@@ -90,8 +95,8 @@ describe("DeleteDeck", () => {
     expect(Application.DeleteDeck("1", app)).not.toBe(app);
   });
 
-  it("deleting with unknown id return same object", () => {
-    expect(Application.DeleteDeck("3", app)).toBe(app);
+  it("deleting with unknown id return equal object", () => {
+    expect(Application.DeleteDeck("10", app)).toEqual(app);
   });
 
   it("success deleting", () => {
@@ -102,6 +107,11 @@ describe("DeleteDeck", () => {
           name: "Not some",
           cards: [],
           cardCounter: 0,
+        },
+        {
+          id: "3",
+          name: "Smth",
+          cards: [],
         },
       ],
       deckCounter: 2,

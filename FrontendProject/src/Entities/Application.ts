@@ -20,14 +20,7 @@ const AddNewDeck = (newDeck: Deck, app: Application): Application => {
 };
 
 const DeleteDeck = (id: string, app: Application): Application => {
-  const index = app.decks.findIndex(d => d.id === id);
-
-  if (index === -1) {
-    return app;
-  }
-
-  const newDecks = [...app.decks];
-  newDecks.splice(index, 1);
+  const newDecks = app.decks.filter(d => d.id !== id);
 
   return {
     ...app,

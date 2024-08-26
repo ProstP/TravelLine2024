@@ -83,8 +83,8 @@ describe("DeleteCard", () => {
     cardCounter: 3,
   };
 
-  it("return same object if nothing to delete", () => {
-    expect(Deck.DeleteCard("3", deck)).toBe(deck);
+  it("return equal object if nothing to delete", () => {
+    expect(Deck.DeleteCard("3", deck)).toEqual(deck);
   });
 
   it("success deleting", () => {
