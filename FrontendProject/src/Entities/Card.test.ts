@@ -18,10 +18,10 @@ describe("EditCard", () => {
   });
 
   it("editing with empty word return object with empty word", () => {
-    expect(Card.EditCard("", "дерево", card).word).toEqual("");
+    expect(Card.EditCard("", "дерево", card).word).toBe("");
   });
 
   it("editing with empty translation return object with empty translate", () => {
-    expect(Card.EditCard("tree", "", card).translation).toEqual("");
+    expect(Card.EditCard("tree", "", card).translation).toBe("");
   });
 });
