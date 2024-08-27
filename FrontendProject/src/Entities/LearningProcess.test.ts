@@ -161,6 +161,20 @@ describe("PutCardToComplited", () => {
   it("success put return new object", () => {
     expect(LearningProcess.PutCardToComplited(lp)).not.toBe(lp);
   });
+
+  it("put all cards to compited return is complited true", () => {
+    let complitedLp = LearningProcess.PutCardToComplited(lp);
+    while (complitedLp.cards.length !== 0) {
+      complitedLp = LearningProcess.PutCardToComplited(complitedLp);
+    }
+    const expected: LearningProcess = {
+      cards: [],
+      complited: ["1", "2", "4"],
+      isComplited: true,
+    };
+
+    expect(complitedLp).toEqual(expected);
+  });
 });
 
 describe("PutCardToDownTheDesk", () => {

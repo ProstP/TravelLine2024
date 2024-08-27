@@ -27,7 +27,7 @@ const PutCardToComplited = (lp: LearningProcess) => {
     return lp;
   }
 
-  const isComplited = lp.cards.length === 0;
+  const isComplited = lp.cards.length === 1;
   const idCard = lp.cards[0].id;
   const newCards = [...lp.cards];
   newCards.splice(0, 1);
