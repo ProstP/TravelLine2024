@@ -15,6 +15,14 @@ type StoreData = {
   };
 };
 
+const GetAppAndDeckIndexById = (id: string, oldApp: Application) => {
+  const app = { ...oldApp };
+  const decks = app.decks;
+  const deckIndex = decks.findIndex(d => d.id === id);
+
+  return { app, decks, deckIndex };
+};
+
 export const useStore = create<StoreData>()(
   persist(
     (set, get) => ({
@@ -32,9 +40,7 @@ export const useStore = create<StoreData>()(
         deleteDeck: (id: string) => set({ ...get(), app: Application.DeleteDeck(id, get().app) }),
 
         addCardToDeck(word, translation, idDeck) {
-          const app = { ...get().app };
-          const decks = app.decks;
-          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
           if (deckIndex === -1) {
             return;
           }
@@ -50,9 +56,7 @@ export const useStore = create<StoreData>()(
           });
         },
         deleteCardInDeck(idCard, idDeck) {
-          const app = { ...get().app };
-          const decks = app.decks;
-          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
           if (deckIndex === -1) {
             return;
           }
@@ -66,11 +70,7 @@ export const useStore = create<StoreData>()(
         },
 
         editCard(word, translation, idCard, idDeck) {
-          console.log(idCard);
-
-          const store = get();
-          const decks = [...store.app.decks];
-          const deckIndex = decks.findIndex(d => d.id === idDeck);
+          const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
           if (deckIndex === -1) {
             return;
           }
@@ -84,9 +84,9 @@ export const useStore = create<StoreData>()(
           deck.cards[cardIndex] = Card.EditCard(word, translation, deck.cards[cardIndex]);
 
           set({
-            ...store,
+            ...get(),
             app: {
-              ...store.app,
+              ...app,
               decks: [...decks],
             },
           });
