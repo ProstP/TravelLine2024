@@ -134,27 +134,32 @@ describe("PutCardToComplited", () => {
       isComplited: false,
     };
 
-    expect(LearningProcess.PutCardToComplited("1", emptyLp)).toBe(emptyLp);
-  });
-
-  it("put unknown id return same object", () => {
-    expect(LearningProcess.PutCardToComplited("3", lp)).toBe(lp);
+    expect(LearningProcess.PutCardToComplited(emptyLp)).toBe(emptyLp);
   });
 
   it("success put id to complited", () => {
-    const expected = { ...lp, complited: ["2"] };
+    const expected = {
+      cards: [
+        {
+          id: "2",
+          word: "new",
+          translation: "новый",
+        },
+        {
+          id: "4",
+          word: "mouse",
+          translation: "мышь",
+        },
+      ],
+      complited: ["1"],
+      isComplited: false,
+    };
 
-    expect(LearningProcess.PutCardToComplited("2", lp)).toEqual(expected);
+    expect(LearningProcess.PutCardToComplited(lp)).toEqual(expected);
   });
 
   it("success put return new object", () => {
-    expect(LearningProcess.PutCardToComplited("2", lp)).not.toBe(lp);
-  });
-
-  it("put existing id in compited", () => {
-    const newLp = LearningProcess.PutCardToComplited("2", lp);
-
-    expect(LearningProcess.PutCardToComplited("2", lp)).toEqual(newLp);
+    expect(LearningProcess.PutCardToComplited(lp)).not.toBe(lp);
   });
 });
 
