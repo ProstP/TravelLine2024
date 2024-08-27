@@ -1,11 +1,13 @@
+import { Card } from "./Card";
 import { LearningProcess } from "./LearningProcess";
 
 describe("CreateLearningProcess", () => {
   it("create with empty", () => {
     const emptyLp = LearningProcess.CreateLearningProcess([]);
-    const expected = {
+    const expected: LearningProcess = {
       cards: [],
       complited: [],
+      isComplited: true,
     };
 
     expect(emptyLp).toEqual(expected);
@@ -24,7 +26,7 @@ describe("CreateLearningProcess", () => {
         translation: "новый",
       },
     ]);
-    const expected = {
+    const expected: LearningProcess = {
       cards: [
         {
           id: "1",
@@ -38,72 +40,72 @@ describe("CreateLearningProcess", () => {
         },
       ],
       complited: [],
+      isComplited: false,
     };
 
     expect(notEmptyLp).toEqual(expected);
   });
 });
 
-describe("PutCardToCompited", () => {
-  const lp = {
+describe("GetNextCardToLearn", () => {
+  const lp: LearningProcess = {
     cards: [
       {
         id: "1",
-        word: "tree",
-        translation: "дерево",
+        word: "word",
+        translation: "слово",
       },
       {
         id: "2",
-        word: "new",
-        translation: "новый",
+        word: "tree",
+        translation: "дерево",
       },
     ],
     complited: [],
+    isComplited: false,
   };
 
-  it("return new Learning Process", () => {
-    expect(LearningProcess.PutCardToCompited(lp)).not.toBe(lp);
-  });
-
-  it("getting from empty deck return same object", () => {
-    const lpWithEmptyDeck = {
+  it("cards is empty return undefined", () => {
+    const emptyLp: LearningProcess = {
       cards: [],
-      complited: [
-        {
-          id: "1",
-          word: "tree",
-          translation: "дерево",
-        },
-      ],
+      complited: [],
+      isComplited: false,
     };
 
-    expect(LearningProcess.PutCardToCompited(lpWithEmptyDeck)).toBe(lpWithEmptyDeck);
+    expect(LearningProcess.GetNextCardToLearn(emptyLp)).toBe(undefined);
   });
 
-  it("success put card to complited", () => {
-    const expected = {
-      cards: [
-        {
-          id: "2",
-          word: "new",
-          translation: "новый",
-        },
-      ],
-      complited: [
-        {
-          id: "1",
-          word: "tree",
-          translation: "дерево",
-        },
-      ],
+  it("learning is complited return undefined", () => {
+    const complitedLp = { ...lp, complited: ["1", "2"], isComplited: true };
+
+    expect(LearningProcess.GetNextCardToLearn(complitedLp)).toBe(undefined);
+  });
+
+  it("next card is first return first card", () => {
+    const nextIsFirstLp = { ...lp, complited: ["2"] };
+    const expected: Card = {
+      id: "1",
+      word: "word",
+      translation: "слово",
     };
 
-    expect(LearningProcess.PutCardToCompited(lp)).toEqual(expected);
+    expect(LearningProcess.GetNextCardToLearn(nextIsFirstLp)).toEqual(expected);
+  });
+
+  it("next not first, find inside deck and return card", () => {
+    const nextNotFirstLp = { ...lp, complited: ["1"] };
+    const expected: Card = {
+      id: "2",
+      word: "tree",
+      translation: "дерево",
+    };
+
+    expect(LearningProcess.GetNextCardToLearn(nextNotFirstLp)).toEqual(expected);
   });
 });
 
-describe("PutCardToDownTheDesk", () => {
-  const lp = {
+describe("PutCardToComplited", () => {
+  const lp: LearningProcess = {
     cards: [
       {
         id: "1",
@@ -121,13 +123,62 @@ describe("PutCardToDownTheDesk", () => {
         translation: "мышь",
       },
     ],
-    complited: [
+    complited: [],
+    isComplited: false,
+  };
+
+  it("put in empty deck return same object", () => {
+    const emptyLp: LearningProcess = {
+      cards: [],
+      complited: [],
+      isComplited: false,
+    };
+
+    expect(LearningProcess.PutCardToComplited("1", emptyLp)).toBe(emptyLp);
+  });
+
+  it("put unknown id return same object", () => {
+    expect(LearningProcess.PutCardToComplited("3", lp)).toBe(lp);
+  });
+
+  it("success put id to complited", () => {
+    const expected = { ...lp, complited: ["2"] };
+
+    expect(LearningProcess.PutCardToComplited("2", lp)).toEqual(expected);
+  });
+
+  it("success put return new object", () => {
+    expect(LearningProcess.PutCardToComplited("2", lp)).not.toBe(lp);
+  });
+
+  it("put existing id in compited", () => {
+    const newLp = LearningProcess.PutCardToComplited("2", lp);
+
+    expect(LearningProcess.PutCardToComplited("2", lp)).toEqual(newLp);
+  });
+});
+
+describe("PutCardToDownTheDesk", () => {
+  const lp: LearningProcess = {
+    cards: [
       {
-        id: "3",
-        word: "pen",
-        translation: "ручка",
+        id: "1",
+        word: "tree",
+        translation: "дерево",
+      },
+      {
+        id: "2",
+        word: "new",
+        translation: "новый",
+      },
+      {
+        id: "4",
+        word: "mouse",
+        translation: "мышь",
       },
     ],
+    complited: ["3"],
+    isComplited: false,
   };
 
   it("return new Learning Process in success putting", () => {
@@ -135,22 +186,17 @@ describe("PutCardToDownTheDesk", () => {
   });
 
   it("getting in empty deck not return same object", () => {
-    const lpWithEmptyDeck = {
+    const lpWithEmptyDeck: LearningProcess = {
       cards: [],
-      complited: [
-        {
-          id: "1",
-          word: "tree",
-          translation: "дерево",
-        },
-      ],
+      complited: [],
+      isComplited: false,
     };
 
     expect(LearningProcess.PutCardToDownTheDesk(lpWithEmptyDeck)).toBe(lpWithEmptyDeck);
   });
 
   it("success put card to down the deck", () => {
-    const expected = {
+    const expected: LearningProcess = {
       cards: [
         {
           id: "2",
@@ -168,13 +214,8 @@ describe("PutCardToDownTheDesk", () => {
           translation: "дерево",
         },
       ],
-      complited: [
-        {
-          id: "3",
-          word: "pen",
-          translation: "ручка",
-        },
-      ],
+      complited: ["3"],
+      isComplited: false,
     };
 
     expect(LearningProcess.PutCardToDownTheDesk(lp)).toEqual(expected);

@@ -2,17 +2,40 @@ import { Card } from "./Card";
 
 export type LearningProcess = {
   cards: Card[];
-  complited: Card[];
+  complited: string[];
+  isComplited: boolean;
 };
 
 const CreateLearningProcess = (cards: Card[]): LearningProcess => {
   return {
     cards: [...cards],
     complited: [],
+    isComplited: cards.length === 0,
   };
 };
 
-const GetTopCardOfDeckAndPut = (lp: LearningProcess, eraseAfterDrafting: boolean | undefined = undefined) => {
+const GetNextCardToLearn = (lp: LearningProcess): Card | undefined => {
+  if (lp.isComplited || lp.cards.length === 0) {
+    return undefined;
+  }
+
+  return lp.cards.find(c => !lp.complited.includes(c.id));
+};
+
+const PutCardToComplited = (idCard: string, lp: LearningProcess) => {
+  if (!lp.cards.some(c => c.id === idCard) || lp.complited.some(id => id == idCard)) {
+    return lp;
+  }
+
+  const isComplited = lp.cards.length - 1 === lp.complited.length;
+  return {
+    ...lp,
+    complited: [...lp.complited, idCard],
+    isComplited: isComplited,
+  };
+};
+
+const PutCardToDownTheDesk = (lp: LearningProcess) => {
   if (lp.cards.length == 0) {
     return lp;
   }
@@ -21,24 +44,10 @@ const GetTopCardOfDeckAndPut = (lp: LearningProcess, eraseAfterDrafting: boolean
   const card = newCards[0];
   newCards.splice(0, 1);
 
-  if (eraseAfterDrafting) {
-    return {
-      cards: [...newCards],
-      complited: [...lp.complited, card],
-    };
-  }
   return {
     ...lp,
     cards: [...newCards, card],
   };
 };
 
-const PutCardToCompited = (lp: LearningProcess) => {
-  return GetTopCardOfDeckAndPut(lp, true);
-};
-
-const PutCardToDownTheDesk = (lp: LearningProcess) => {
-  return GetTopCardOfDeckAndPut(lp);
-};
-
-export const LearningProcess = { CreateLearningProcess, PutCardToCompited, PutCardToDownTheDesk };
+export const LearningProcess = { CreateLearningProcess, GetNextCardToLearn, PutCardToComplited, PutCardToDownTheDesk };
