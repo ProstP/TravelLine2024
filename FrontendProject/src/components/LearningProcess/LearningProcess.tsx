@@ -12,7 +12,7 @@ type DisplayLearningProcessProps = {
 };
 
 const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
-  const [lp, setLp] = useState<LearningProcessType>({ cards: deck.cards, complited: [] });
+  const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck.cards));
 
   return (
     <div className={styles.container}>
@@ -27,10 +27,10 @@ const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
       </div>
       <CardToLearn
         card={lp.cards.length !== 0 ? lp.cards[0] : { id: "", word: "", translation: "" }}
-        rightAns={() => setLp(LearningProcessType.PutCardToCompited(lp))}
+        rightAns={() => setLp(LearningProcessType.PutCardToComplited(lp))}
         mistake={() => setLp(LearningProcessType.PutCardToDownTheDesk(lp))}
       />
-      {lp.cards.length === 0 ? <DeckCompletedMessage exit={exit} /> : null}
+      {lp.isComplited ? <DeckCompletedMessage exit={exit} /> : null}
     </div>
   );
 };
