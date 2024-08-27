@@ -22,14 +22,19 @@ const GetNextCardToLearn = (lp: LearningProcess): Card | undefined => {
   return lp.cards.find(c => !lp.complited.includes(c.id));
 };
 
-const PutCardToComplited = (idCard: string, lp: LearningProcess) => {
-  if (!lp.cards.some(c => c.id === idCard) || lp.complited.some(id => id == idCard)) {
+const PutCardToComplited = (lp: LearningProcess) => {
+  if (lp.cards.length === 0) {
     return lp;
   }
 
-  const isComplited = lp.cards.length - 1 === lp.complited.length;
+  const isComplited = lp.cards.length === 0;
+  const idCard = lp.cards[0].id;
+  const newCards = [...lp.cards];
+  newCards.splice(0, 1);
+
   return {
     ...lp,
+    cards: newCards,
     complited: [...lp.complited, idCard],
     isComplited: isComplited,
   };
