@@ -33,7 +33,7 @@ const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
   return (
     <div className={styles.container}>
       <Header deckName={deck.name} exit={exit} />
-      <Decks unCompitedCount={lp.cards.length} complitedCount={lp.complited.length} />
+      <Decks unCompitedCount={lp.cards.length} complitedCount={lp.complitedCount} />
       <CardToLearn
         card={lp.cards.length !== 0 ? lp.cards[0] : { id: "", word: "", translation: "" }}
         rightAns={() => setLp(LearningProcessType.PutCardToComplited(lp))}
