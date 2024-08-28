@@ -1,4 +1,3 @@
-import { Card } from "./Card";
 import { LearningProcess } from "./LearningProcess";
 
 describe("CreateLearningProcess", () => {
@@ -6,7 +5,7 @@ describe("CreateLearningProcess", () => {
     const emptyLp = LearningProcess.CreateLearningProcess([]);
     const expected: LearningProcess = {
       cards: [],
-      complited: [],
+      complitedCount: 0,
       isComplited: true,
     };
 
@@ -39,68 +38,11 @@ describe("CreateLearningProcess", () => {
           translation: "новый",
         },
       ],
-      complited: [],
+      complitedCount: 0,
       isComplited: false,
     };
 
     expect(notEmptyLp).toEqual(expected);
-  });
-});
-
-describe("GetNextCardToLearn", () => {
-  const lp: LearningProcess = {
-    cards: [
-      {
-        id: "1",
-        word: "word",
-        translation: "слово",
-      },
-      {
-        id: "2",
-        word: "tree",
-        translation: "дерево",
-      },
-    ],
-    complited: [],
-    isComplited: false,
-  };
-
-  it("cards is empty return undefined", () => {
-    const emptyLp: LearningProcess = {
-      cards: [],
-      complited: [],
-      isComplited: false,
-    };
-
-    expect(LearningProcess.GetNextCardToLearn(emptyLp)).toBe(undefined);
-  });
-
-  it("learning is complited return undefined", () => {
-    const complitedLp = { ...lp, complited: ["1", "2"], isComplited: true };
-
-    expect(LearningProcess.GetNextCardToLearn(complitedLp)).toBe(undefined);
-  });
-
-  it("next card is first return first card", () => {
-    const nextIsFirstLp = { ...lp, complited: ["2"] };
-    const expected: Card = {
-      id: "1",
-      word: "word",
-      translation: "слово",
-    };
-
-    expect(LearningProcess.GetNextCardToLearn(nextIsFirstLp)).toEqual(expected);
-  });
-
-  it("next not first, find inside deck and return card", () => {
-    const nextNotFirstLp = { ...lp, complited: ["1"] };
-    const expected: Card = {
-      id: "2",
-      word: "tree",
-      translation: "дерево",
-    };
-
-    expect(LearningProcess.GetNextCardToLearn(nextNotFirstLp)).toEqual(expected);
   });
 });
 
@@ -123,14 +65,14 @@ describe("PutCardToComplited", () => {
         translation: "мышь",
       },
     ],
-    complited: [],
+    complitedCount: 0,
     isComplited: false,
   };
 
   it("put in empty deck return same object", () => {
     const emptyLp: LearningProcess = {
       cards: [],
-      complited: [],
+      complitedCount: 0,
       isComplited: false,
     };
 
@@ -138,7 +80,7 @@ describe("PutCardToComplited", () => {
   });
 
   it("success put id to complited", () => {
-    const expected = {
+    const expected: LearningProcess = {
       cards: [
         {
           id: "2",
@@ -151,7 +93,7 @@ describe("PutCardToComplited", () => {
           translation: "мышь",
         },
       ],
-      complited: ["1"],
+      complitedCount: 1,
       isComplited: false,
     };
 
@@ -169,7 +111,7 @@ describe("PutCardToComplited", () => {
     }
     const expected: LearningProcess = {
       cards: [],
-      complited: ["1", "2", "4"],
+      complitedCount: 3,
       isComplited: true,
     };
 
@@ -196,7 +138,7 @@ describe("PutCardToDownTheDesk", () => {
         translation: "мышь",
       },
     ],
-    complited: ["3"],
+    complitedCount: 1,
     isComplited: false,
   };
 
@@ -207,7 +149,7 @@ describe("PutCardToDownTheDesk", () => {
   it("getting in empty deck not return same object", () => {
     const lpWithEmptyDeck: LearningProcess = {
       cards: [],
-      complited: [],
+      complitedCount: 0,
       isComplited: false,
     };
 
@@ -233,7 +175,7 @@ describe("PutCardToDownTheDesk", () => {
           translation: "дерево",
         },
       ],
-      complited: ["3"],
+      complitedCount: 1,
       isComplited: false,
     };
 
