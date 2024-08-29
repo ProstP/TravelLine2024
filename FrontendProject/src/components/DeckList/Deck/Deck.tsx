@@ -1,15 +1,15 @@
-import { Deck as DeckType } from "../../Entities/Deck";
-import { useStore } from "../../hooks/useStore";
+import { Deck as DeckType } from "../../../Entities/Deck";
+import { useStore } from "../../../hooks/useStore";
 import styles from "./Deck.module.scss";
 
-type DisplayDeckProps = {
+type DeckProps = {
   deck: DeckType;
   selectDeckToLearn: () => void;
   selectDeckToEditCards: () => void;
 };
 
-const Deck = ({ deck, selectDeckToLearn, selectDeckToEditCards }: DisplayDeckProps) => {
-  const { deleteDeck } = useStore(state => state.actions);
+const Deck = ({ deck, selectDeckToLearn, selectDeckToEditCards }: DeckProps) => {
+  const deleteDeck = useStore(state => state.deleteDeck);
 
   return (
     <div className={styles.deck}>

@@ -1,5 +1,5 @@
 @import "../../DeckList/CreateDeckMenu/CreateDeckMenu.module.scss";
-@import "./CardToEdit.module.scss";
+@import "./CardToEdit/CardToEdit.module.scss";
 
 .background {
   @include darkenedBackground();

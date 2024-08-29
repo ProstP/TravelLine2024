@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Deck } from "../../Entities/Deck";
 import { LearningProcess as LearningProcessType } from "../../Entities/LearningProcess";
 import styles from "./LearningProcess.module.scss";
-import Header from "./Header/Header";
 import CardToLearn from "./CardToLearn/CardToLearn";
 import DeckCompletedMessage from "./DeckCompletedMessage/DeckCompletedMessage";
+import Header from "../Header/Header";
+import { useStore } from "../../hooks/useStore";
 
 type DecksProps = {
   unCompitedCount: number;
@@ -24,22 +25,29 @@ const Decks = ({ unCompitedCount, complitedCount }: DecksProps) => (
 
 type DisplayLearningProcessProps = {
   deck: Deck;
-  exit: () => void;
 };
 
-const LearningProcess = ({ deck, exit }: DisplayLearningProcessProps) => {
+const LearningProcess = ({ deck }: DisplayLearningProcessProps) => {
   const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck.cards));
+  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
 
   return (
     <div className={styles.container}>
-      <Header deckName={deck.name} exit={exit} />
+      <Header>
+        <h3>{deck.name}</h3>
+        <button onClick={() => selectDeckToLearn("")} className={styles.btn}>
+          Выйти
+        </button>
+      </Header>
       <Decks unCompitedCount={lp.cards.length} complitedCount={lp.complitedCount} />
-      <CardToLearn
-        card={lp.cards.length !== 0 ? lp.cards[0] : { id: "", word: "", translation: "" }}
-        rightAns={() => setLp(LearningProcessType.PutCardToComplited(lp))}
-        mistake={() => setLp(LearningProcessType.PutCardToDownTheDesk(lp))}
-      />
-      {lp.isComplited ? <DeckCompletedMessage exit={exit} /> : null}
+      {!lp.isComplited ? (
+        <CardToLearn
+          card={lp.cards[0]}
+          rightAns={() => setLp(LearningProcessType.PutCardToComplited(lp))}
+          mistake={() => setLp(LearningProcessType.PutCardToDownTheDesk(lp))}
+        />
+      ) : null}
+      {lp.isComplited ? <DeckCompletedMessage /> : null}
     </div>
   );
 };

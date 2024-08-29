@@ -2,6 +2,7 @@ import { Deck } from "./Deck";
 
 export type Application = {
   decks: Deck[];
+  selectedDeckToLearn: string;
 };
 
 const AddNewDeck = (newDeck: Deck, app: Application): Application => {

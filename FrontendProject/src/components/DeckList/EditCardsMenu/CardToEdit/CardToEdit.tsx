@@ -1,5 +1,5 @@
-import { Card } from "../../../Entities/Card";
-import { useStore } from "../../../hooks/useStore";
+import { Card } from "../../../../Entities/Card";
+import { useStore } from "../../../../hooks/useStore";
 import styles from "./CardToEdit.module.scss";
 
 type CardToEditProps = {
@@ -8,7 +8,7 @@ type CardToEditProps = {
 };
 
 const CardToEdit = ({ card, idDeck }: CardToEditProps) => {
-  const { editCard, deleteCardInDeck } = useStore(state => state.actions);
+  const { editCard, deleteCardInDeck } = useStore();
 
   return (
     <div className={styles.card}>

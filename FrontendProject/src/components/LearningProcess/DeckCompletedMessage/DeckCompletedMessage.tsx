@@ -1,18 +1,19 @@
+import { useStore } from "../../../hooks/useStore";
 import styles from "./DeckCompletedMessage.module.scss";
 
-type DeckCompletedMessageProps = {
-  exit: () => void;
-};
+const DeckCompletedMessage = () => {
+  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
 
-const DeckCompletedMessage = ({ exit }: DeckCompletedMessageProps) => (
-  <div className={styles.background}>
-    <div className={styles.menu}>
-      <p className={styles.message}>Поздравляю, вы завершили успешно все карточки из данного набора</p>
-      <button className={styles.btn} onClick={() => exit()}>
-        Выход
-      </button>
+  return (
+    <div className={styles.background}>
+      <div className={styles.menu}>
+        <p className={styles.message}>Поздравляю, вы завершили успешно все карточки из данного набора</p>
+        <button className={styles.btn} onClick={() => selectDeckToLearn("")}>
+          Выход
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default DeckCompletedMessage;

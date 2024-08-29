@@ -4,6 +4,7 @@ import { Deck } from "./Deck";
 describe("AddNewDeck", () => {
   const app: Application = {
     decks: [],
+    selectedDeckToLearn: "",
   };
   const deck: Deck = { id: "1", name: "Some", cards: [] };
 
@@ -20,6 +21,7 @@ describe("AddNewDeck", () => {
           cards: [],
         },
       ],
+      selectedDeckToLearn: "",
     };
 
     expect(Application.AddNewDeck(deck, app)).toEqual(expected);
@@ -41,6 +43,7 @@ describe("AddNewDeck", () => {
           cards: [],
         },
       ],
+      selectedDeckToLearn: "",
     };
 
     expect(Application.AddNewDeck(newDeck, newApp)).toEqual(expected);
@@ -80,6 +83,7 @@ describe("DeleteDeck", () => {
         cards: [],
       },
     ],
+    selectedDeckToLearn: "",
   };
 
   it("return new Application in success deleting", () => {
@@ -104,6 +108,7 @@ describe("DeleteDeck", () => {
           cards: [],
         },
       ],
+      selectedDeckToLearn: "",
     };
 
     expect(Application.DeleteDeck("1", app)).toEqual(expected);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../../Entities/Card";
 import styles from "./CardToLearn.module.scss";
 
@@ -10,6 +10,10 @@ type CardToLearnProps = {
 
 const CardToLearn = ({ card, rightAns, mistake }: CardToLearnProps) => {
   const [isTranslationHide, setTranslationHide] = useState(true);
+
+  useEffect(() => {
+    setTranslationHide(true);
+  }, [card]);
 
   return (
     <div className={styles.container}>

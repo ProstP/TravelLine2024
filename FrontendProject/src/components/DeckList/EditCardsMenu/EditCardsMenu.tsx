@@ -1,6 +1,6 @@
 import { Deck } from "../../../Entities/Deck";
 import { useStore } from "../../../hooks/useStore";
-import CardToEdit from "./CardToEdit";
+import CardToEdit from "./CardToEdit/CardToEdit";
 import styles from "./EditCardsMenu.module.scss";
 
 type DisplayCardsProps = {
@@ -8,7 +8,7 @@ type DisplayCardsProps = {
 };
 
 const List = ({ deck }: DisplayCardsProps) => {
-  const { addCardToDeck } = useStore(state => state.actions);
+  const addCardToDeck = useStore(state => state.addCardToDeck);
 
   return (
     <ul className={styles.list}>

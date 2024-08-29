@@ -8,7 +8,7 @@ type CreateDeckMenuProps = {
 
 const CreateDeckMenu = ({ closeMenu }: CreateDeckMenuProps) => {
   const [name, setName] = useState("");
-  const { addDeck } = useStore(state => state.actions);
+  const addDeck = useStore(state => state.addDeck);
 
   return (
     <div className={styles.background}>

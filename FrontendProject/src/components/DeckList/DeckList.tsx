@@ -1,37 +1,36 @@
 import { Deck as DeckType } from "../../Entities/Deck";
-import Header from "./Header/Header";
-import Deck from "./Deck";
+import Deck from "./Deck/Deck";
 import styles from "./DeckList.module.scss";
 import CreateDeckMenu from "./CreateDeckMenu/CreateDeckMenu";
 import { useEffect, useState } from "react";
 import EditCardsMenu from "./EditCardsMenu/EditCardsMenu";
 import { useStore } from "../../hooks/useStore";
+import Header from "../Header/Header";
 
 type ContentProps = {
   decks: DeckType[];
-  selectDeckToLearn: (id: string) => void;
   selectDeckToEdit: (id: string) => void;
 };
 
-const List = ({ decks, selectDeckToLearn, selectDeckToEdit }: ContentProps) => (
-  <ul className={styles.list}>
-    {decks.map(deck => (
-      <li key={deck.id} className={styles.element}>
-        <Deck
-          deck={deck}
-          selectDeckToLearn={() => selectDeckToLearn(deck.id)}
-          selectDeckToEditCards={() => selectDeckToEdit(deck.id)}
-        />
-      </li>
-    ))}
-  </ul>
-);
+const List = ({ decks, selectDeckToEdit }: ContentProps) => {
+  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
 
-type DeckListProps = {
-  selectDeckToLearn: (id: string) => void;
+  return (
+    <ul className={styles.list}>
+      {decks.map(deck => (
+        <li key={deck.id} className={styles.element}>
+          <Deck
+            deck={deck}
+            selectDeckToLearn={() => selectDeckToLearn(deck.id)}
+            selectDeckToEditCards={() => selectDeckToEdit(deck.id)}
+          />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-const DeckList = ({ selectDeckToLearn }: DeckListProps) => {
+const DeckList = () => {
   const [createDeckVisible, setCreateDeckVisible] = useState(false);
   const [selectedDeckToEdit, setDeckToEdit] = useState("");
   const list = useStore(state => state.app.decks);
@@ -46,8 +45,11 @@ const DeckList = ({ selectDeckToLearn }: DeckListProps) => {
       {selectedDeckToEdit !== "" ? (
         <EditCardsMenu closeMenuVoid={() => setDeckToEdit("")} idDeck={selectedDeckToEdit} />
       ) : null}
-      <Header openCreateDeckMenu={() => setCreateDeckVisible(true)} />
-      <List decks={list} selectDeckToLearn={selectDeckToLearn} selectDeckToEdit={(id: string) => setDeckToEdit(id)} />
+      <Header>
+        <h2>Learning application</h2>
+        <button onClick={() => setCreateDeckVisible(true)}>Создать новый набор</button>
+      </Header>
+      <List decks={list} selectDeckToEdit={(id: string) => setDeckToEdit(id)} />
     </div>
   );
 };
