@@ -25,18 +25,17 @@ const Decks = ({ unCompitedCount, complitedCount }: DecksProps) => (
 
 const LearningProcess = () => {
   const navigate = useNavigate();
-  const params = useParams();
-  const idDeck = params.id;
-  const deck = useStore(state => state.app.decks.find(d => d.id === idDeck));
-  if (deck === undefined) {
+  const idDeck = useParams().id;
+  const deck = useStore(state => state.app.decks.find(d => d.id === idDeck)) ?? { id: "", name: "", cards: [] };
+  if (deck.id === "") {
     navigate("/");
   }
-  const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck!.cards));
+  const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck.cards));
 
   return (
     <div className={styles.container}>
       <Header>
-        <h3>{deck!.name}</h3>
+        <h3>{deck.name}</h3>
         <button onClick={() => navigate("/")} className={styles.btn}>
           Выйти
         </button>

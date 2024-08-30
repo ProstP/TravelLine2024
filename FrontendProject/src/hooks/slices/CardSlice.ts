@@ -7,50 +7,57 @@ export type CardSlice = {
   addCardToDeck: (word: string, translation: string, idDeck: string) => void;
   deleteCardInDeck: (idCard: string, idDeck: string) => void;
   editCard: (word: string, translation: string, idCard: string, idDeck: string) => void;
+
+  editDecks: (id: string, edit: (d: Deck) => Deck) => void;
 };
 
 export const createCardSlice: StateCreator<CardSlice & { app: Application }, [], [], CardSlice> = (set, get) => ({
   addCardToDeck: (word, translation, idDeck) => {
-    const addCard = (deck: Deck) => {
-      return Deck.AddNewCard(
-        {
-          id: Math.random() + "Card",
-          word: word,
-          translation: translation,
-        },
-        deck,
-      );
+    const edit = (deck: Deck) => {
+      return Deck.AddNewCard({ id: Math.random() + "Card", word: word, translation: translation }, deck);
     };
 
-    set({
-      ...get(),
-      app: Application.EditDeck(idDeck, addCard, get().app),
-    });
+    get().editDecks(idDeck, edit);
   },
 
   deleteCardInDeck: (idCard, idDeck) => {
-    const deleteCard = (deck: Deck) => {
+    const edit = (deck: Deck) => {
       return Deck.DeleteCard(idCard, deck);
     };
 
-    set({
-      ...get(),
-      app: Application.EditDeck(idDeck, deleteCard, get().app),
-    });
+    get().editDecks(idDeck, edit);
   },
 
   editCard: (word, translation, idCard, idDeck) => {
-    const editCard = (deck: Deck) => {
-      const editCardFields = (c: Card) => {
-        return Card.EditCard(word, translation, c);
+    const edit = (deck: Deck) => {
+      const newCards = deck.cards.map(card => {
+        if (card.id !== idCard) {
+          return card;
+        }
+        return Card.EditCard(word, translation, card);
+      });
+      return {
+        ...deck,
+        cards: newCards,
       };
-
-      return Deck.EditCard(idCard, editCardFields, deck);
     };
+
+    get().editDecks(idDeck, edit);
+  },
+  editDecks: (id: string, edit: (deck: Deck) => Deck) => {
+    const newDecks = get().app.decks.map(deck => {
+      if (deck.id !== id) {
+        return deck;
+      }
+      return edit(deck);
+    });
 
     set({
       ...get(),
-      app: Application.EditDeck(idDeck, editCard, get().app),
+      app: {
+        ...get().app,
+        decks: newDecks,
+      },
     });
   },
 });

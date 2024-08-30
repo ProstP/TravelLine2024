@@ -23,19 +23,4 @@ const DeleteDeck = (id: string, app: Application): Application => {
   };
 };
 
-const EditDeck = (idDeck: string, edit: (d: Deck) => Deck, app: Application): Application => {
-  const decks = [...app.decks];
-  const deckIndex = decks.findIndex(d => d.id === idDeck);
-  if (deckIndex === -1) {
-    return app;
-  }
-
-  decks[deckIndex] = edit(decks[deckIndex]);
-
-  return {
-    ...app,
-    decks: decks,
-  };
-};
-
-export const Application = { AddNewDeck, DeleteDeck, EditDeck };
+export const Application = { AddNewDeck, DeleteDeck };

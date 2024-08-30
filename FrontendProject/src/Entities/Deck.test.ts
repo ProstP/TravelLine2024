@@ -110,39 +110,39 @@ describe("DeleteCard", () => {
   });
 });
 
-describe("EditCard", () => {
-  const deck: Deck = {
-    id: "idDeck",
-    name: "Some",
-    cards: [
-      {
-        id: "idCard",
-        word: "tree",
-        translation: "машина",
-      },
-    ],
-  };
-  const edit = (c: Card) => {
-    return { ...c, word: "tree", translation: "дерево" };
-  };
+// describe("EditCard", () => {
+//   const deck: Deck = {
+//     id: "idDeck",
+//     name: "Some",
+//     cards: [
+//       {
+//         id: "idCard",
+//         word: "tree",
+//         translation: "машина",
+//       },
+//     ],
+//   };
+//   const edit = (c: Card) => {
+//     return { ...c, word: "tree", translation: "дерево" };
+//   };
 
-  it("Unknown idCard return same object", () => {
-    expect(Deck.EditCard("card", edit, deck)).toBe(deck);
-  });
+//   it("Unknown idCard return same object", () => {
+//     expect(Deck.EditCard("card", edit, deck)).toBe(deck);
+//   });
 
-  it("Succes return same deck with edited card", () => {
-    const expected: Deck = {
-      id: "idDeck",
-      name: "Some",
-      cards: [
-        {
-          id: "idCard",
-          word: "tree",
-          translation: "дерево",
-        },
-      ],
-    };
+//   it("Succes return same deck with edited card", () => {
+//     const expected: Deck = {
+//       id: "idDeck",
+//       name: "Some",
+//       cards: [
+//         {
+//           id: "idCard",
+//           word: "tree",
+//           translation: "дерево",
+//         },
+//       ],
+//     };
 
-    expect(Deck.EditCard("idCard", edit, deck)).toEqual(expected);
-  });
-});
+//     expect(Deck.EditCard("idCard", edit, deck)).toEqual(expected);
+//   });
+// });

@@ -26,19 +26,4 @@ const DeleteCard = (idCard: string, deck: Deck): Deck => {
   };
 };
 
-const EditCard = (idCard: string, edit: (c: Card) => Card, deck: Deck): Deck => {
-  const cards = [...deck.cards];
-  const cardIndex = cards.findIndex(c => c.id === idCard);
-  if (cardIndex === -1) {
-    return deck;
-  }
-
-  cards[cardIndex] = edit(cards[cardIndex]);
-
-  return {
-    ...deck,
-    cards: cards,
-  };
-};
-
-export const Deck = { AddNewCard, DeleteCard, EditCard };
+export const Deck = { AddNewCard, DeleteCard };
