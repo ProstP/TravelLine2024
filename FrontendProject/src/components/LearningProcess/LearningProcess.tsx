@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Deck } from "../../Entities/Deck";
 import { LearningProcess as LearningProcessType } from "../../Entities/LearningProcess";
 import styles from "./LearningProcess.module.scss";
 import CardToLearn from "./CardToLearn/CardToLearn";
 import DeckCompletedMessage from "./DeckCompletedMessage/DeckCompletedMessage";
 import Header from "../Header/Header";
 import { useStore } from "../../hooks/useStore";
+import { useNavigate, useParams } from "react-router-dom";
 
 type DecksProps = {
   unCompitedCount: number;
@@ -23,19 +23,21 @@ const Decks = ({ unCompitedCount, complitedCount }: DecksProps) => (
   </div>
 );
 
-type DisplayLearningProcessProps = {
-  deck: Deck;
-};
-
-const LearningProcess = ({ deck }: DisplayLearningProcessProps) => {
-  const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck.cards));
-  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
+const LearningProcess = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const idDeck = params.id;
+  const deck = useStore(state => state.app.decks.find(d => d.id === idDeck));
+  if (deck === undefined) {
+    navigate("/");
+  }
+  const [lp, setLp] = useState<LearningProcessType>(LearningProcessType.CreateLearningProcess(deck!.cards));
 
   return (
     <div className={styles.container}>
       <Header>
-        <h3>{deck.name}</h3>
-        <button onClick={() => selectDeckToLearn("")} className={styles.btn}>
+        <h3>{deck!.name}</h3>
+        <button onClick={() => navigate("/")} className={styles.btn}>
           Выйти
         </button>
       </Header>

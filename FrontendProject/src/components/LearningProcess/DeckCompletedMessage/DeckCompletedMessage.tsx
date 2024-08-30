@@ -1,14 +1,14 @@
-import { useStore } from "../../../hooks/useStore";
+import { useNavigate } from "react-router-dom";
 import styles from "./DeckCompletedMessage.module.scss";
 
 const DeckCompletedMessage = () => {
-  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.background}>
       <div className={styles.menu}>
         <p className={styles.message}>Поздравляю, вы завершили успешно все карточки из данного набора</p>
-        <button className={styles.btn} onClick={() => selectDeckToLearn("")}>
+        <button className={styles.btn} onClick={() => navigate("/")}>
           Выход
         </button>
       </div>

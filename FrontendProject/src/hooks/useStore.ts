@@ -7,7 +7,6 @@ import { createDeckSlice, DeckSlice } from "./slices/DeckSlice";
 type StoreData = CardSlice &
   DeckSlice & {
     app: Application;
-    selectDeckToLearn: (id: string) => void;
   };
 
 export const useStore = create<StoreData>()(
@@ -17,7 +16,6 @@ export const useStore = create<StoreData>()(
         decks: [],
         selectedDeckToLearn: "",
       },
-      selectDeckToLearn: (id: string) => s[0]({ ...s[1](), app: { ...s[1]().app, selectedDeckToLearn: id } }),
       ...createCardSlice(...s),
       ...createDeckSlice(...s),
     }),

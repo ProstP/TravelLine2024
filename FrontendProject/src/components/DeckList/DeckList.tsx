@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import EditCardsMenu from "./EditCardsMenu/EditCardsMenu";
 import { useStore } from "../../hooks/useStore";
 import Header from "../Header/Header";
+import { useNavigate } from "react-router-dom";
 
 type ContentProps = {
   decks: DeckType[];
@@ -13,7 +14,7 @@ type ContentProps = {
 };
 
 const List = ({ decks, selectDeckToEdit }: ContentProps) => {
-  const selectDeckToLearn = useStore(state => state.selectDeckToLearn);
+  const navigate = useNavigate();
 
   return (
     <ul className={styles.list}>
@@ -21,7 +22,9 @@ const List = ({ decks, selectDeckToEdit }: ContentProps) => {
         <li key={deck.id} className={styles.element}>
           <Deck
             deck={deck}
-            selectDeckToLearn={() => selectDeckToLearn(deck.id)}
+            selectDeckToLearn={() => {
+              navigate(`/learning/${deck.id}`);
+            }}
             selectDeckToEditCards={() => selectDeckToEdit(deck.id)}
           />
         </li>

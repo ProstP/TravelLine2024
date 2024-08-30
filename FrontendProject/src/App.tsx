@@ -1,16 +1,18 @@
 import DeckList from "./components/DeckList/DeckList";
-import { useStore } from "./hooks/useStore";
 import LearningProcess from "./components/LearningProcess/LearningProcess";
-
-const Content = () => {
-  const selectedDeck = useStore(state => state.app.selectedDeckToLearn);
-  const deck = useStore(state => state.app.decks.find(d => d.id === selectedDeck));
-
-  return <>{deck === undefined ? <DeckList /> : <LearningProcess deck={deck} />}</>;
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  return <Content />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<DeckList />} />
+        <Route path="/learning">
+          <Route path=":id" element={<LearningProcess />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
