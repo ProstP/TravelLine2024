@@ -1,0 +1,36 @@
+.container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.decks {
+  width: 25%;
+  height: 65%;
+  border: 5px dashed gray;
+  background-color: palegreen;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 40px;
+}
+
+.deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35px;
+  background-color: antiquewhite;
+  width: 75%;
+  height: 20%;
+}
+
+.title {
+  color: gray;
+  align-items: center;
+}

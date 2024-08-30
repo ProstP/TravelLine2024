@@ -1,0 +1,61 @@
+@mixin darkenedBackground {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+}
+
+.background {
+  @include darkenedBackground();
+}
+
+.menu {
+  margin-top: 10%;
+  width: 40%;
+  height: 40%;
+  background-color: lightcyan;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.title {
+  color: darkturquoise;
+  text-align: center;
+}
+
+.field {
+  background-color: lightblue;
+  color: black;
+  border: 0;
+  height: 20px;
+  border-radius: 5px;
+  height: 10%;
+  width: 40%;
+  text-align: center;
+}
+
+.btns {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@mixin btn($color: grey) {
+  background-color: $color;
+  width: 30%;
+}
+
+.cancel {
+  @include btn(red);
+}
+
+.add {
+  @include btn(lime);
+}

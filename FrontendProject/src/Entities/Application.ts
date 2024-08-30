@@ -8,8 +8,8 @@ const AddNewDeck = (newDeck: Deck, app: Application): Application => {
   if (app.decks.some(d => d.id === newDeck.id || d.name === newDeck.name)) {
     return app;
   }
-
   return {
+    ...app,
     decks: [...app.decks, newDeck],
   };
 };
@@ -18,6 +18,7 @@ const DeleteDeck = (id: string, app: Application): Application => {
   const newDecks = app.decks.filter(d => d.id !== id);
 
   return {
+    ...app,
     decks: newDecks,
   };
 };

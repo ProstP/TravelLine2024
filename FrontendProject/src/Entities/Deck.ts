@@ -17,8 +17,8 @@ const AddNewCard = (newCard: Card, deck: Deck): Deck => {
   };
 };
 
-const DeleteCard = (id: string, deck: Deck): Deck => {
-  const newCards = deck.cards.filter(c => c.id !== id);
+const DeleteCard = (idCard: string, deck: Deck): Deck => {
+  const newCards = deck.cards.filter(c => c.id !== idCard);
 
   return {
     ...deck,

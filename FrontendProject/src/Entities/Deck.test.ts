@@ -10,7 +10,7 @@ describe("AddNewCard", () => {
   });
 
   it("add new card to empty deck", () => {
-    const expected = {
+    const expected: Deck = {
       id: "1",
       name: "Some",
       cards: [card],
@@ -21,8 +21,8 @@ describe("AddNewCard", () => {
 
   it("add new card to down of deck", () => {
     const newDeck = Deck.AddNewCard(card, deck);
-    const newCard = { id: "2", word: "new", translation: "новый" };
-    const expected = {
+    const newCard: Card = { id: "2", word: "new", translation: "новый" };
+    const expected: Deck = {
       id: "1",
       name: "Some",
       cards: [
@@ -44,14 +44,14 @@ describe("AddNewCard", () => {
 
   it("return same object if add card with existing id", () => {
     const newDeck = Deck.AddNewCard(card, deck);
-    const cardWithExistingId = { id: "1", word: "new", translation: "новый" };
+    const cardWithExistingId: Card = { id: "1", word: "new", translation: "новый" };
 
     expect(Deck.AddNewCard(cardWithExistingId, newDeck)).toBe(newDeck);
   });
 
   it("return same object if add card with existing name", () => {
     const newDeck = Deck.AddNewCard(card, deck);
-    const cardWithExistingName = { id: "2", word: "tree", translation: "другое дерево" };
+    const cardWithExistingName: Card = { id: "2", word: "tree", translation: "другое дерево" };
 
     expect(Deck.AddNewCard(cardWithExistingName, newDeck)).toBe(newDeck);
   });
@@ -85,7 +85,7 @@ describe("DeleteCard", () => {
   });
 
   it("success deleting", () => {
-    const expected = {
+    const expected: Deck = {
       id: "1",
       name: "Some",
       cards: [
@@ -109,3 +109,40 @@ describe("DeleteCard", () => {
     expect(Deck.DeleteCard("1", deck)).not.toBe(deck);
   });
 });
+
+// describe("EditCard", () => {
+//   const deck: Deck = {
+//     id: "idDeck",
+//     name: "Some",
+//     cards: [
+//       {
+//         id: "idCard",
+//         word: "tree",
+//         translation: "машина",
+//       },
+//     ],
+//   };
+//   const edit = (c: Card) => {
+//     return { ...c, word: "tree", translation: "дерево" };
+//   };
+
+//   it("Unknown idCard return same object", () => {
+//     expect(Deck.EditCard("card", edit, deck)).toBe(deck);
+//   });
+
+//   it("Succes return same deck with edited card", () => {
+//     const expected: Deck = {
+//       id: "idDeck",
+//       name: "Some",
+//       cards: [
+//         {
+//           id: "idCard",
+//           word: "tree",
+//           translation: "дерево",
+//         },
+//       ],
+//     };
+
+//     expect(Deck.EditCard("idCard", edit, deck)).toEqual(expected);
+//   });
+// });

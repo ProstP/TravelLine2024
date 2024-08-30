@@ -1,0 +1,30 @@
+@import "../../DeckList/CreateDeckMenu/CreateDeckMenu.module.scss";
+
+.background {
+  @include darkenedBackground();
+}
+
+.menu {
+  margin-top: 15%;
+  width: 40%;
+  height: 30%;
+  background-color: lavenderblush;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 20px;
+  padding: 0 20px;
+}
+
+.message {
+  text-align: center;
+  color: brown;
+}
+
+.btn {
+  border-radius: 20px;
+  width: 30%;
+  height: 20%;
+  background-color: brown;
+}
