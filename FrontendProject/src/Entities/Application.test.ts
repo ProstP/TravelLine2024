@@ -1,4 +1,5 @@
 import { Application } from "./Application";
+import { Card } from "./Card";
 import { Deck } from "./Deck";
 
 describe("AddNewDeck", () => {
@@ -107,5 +108,112 @@ describe("DeleteDeck", () => {
     };
 
     expect(Application.DeleteDeck("1", app)).toEqual(expected);
+  });
+});
+
+describe("EditDeck", () => {
+  const app: Application = {
+    decks: [
+      {
+        id: "idDeck",
+        name: "some",
+        cards: [
+          {
+            id: "idCard",
+            word: "word",
+            translation: "слово",
+          },
+        ],
+      },
+    ],
+  };
+
+  it("unknown idDeck return same obj", () => {
+    const edit = (d: Deck) => {
+      return { ...d };
+    };
+
+    expect(Application.EditDeck("unknown", edit, app)).toBe(app);
+  });
+
+  it("add new card return deck with new card", () => {
+    const edit = (d: Deck) => {
+      return Deck.AddNewCard(
+        {
+          id: "another card",
+          word: "tree",
+          translation: "дерево",
+        },
+        d,
+      );
+    };
+    const expected: Application = {
+      decks: [
+        {
+          id: "idDeck",
+          name: "some",
+          cards: [
+            {
+              id: "idCard",
+              word: "word",
+              translation: "слово",
+            },
+            {
+              id: "another card",
+              word: "tree",
+              translation: "дерево",
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(Application.EditDeck("idDeck", edit, app)).toEqual(expected);
+  });
+
+  it("delete card return empty deck", () => {
+    const edit = (d: Deck) => {
+      return Deck.DeleteCard("idCard", d);
+    };
+    const expected: Application = {
+      decks: [
+        {
+          id: "idDeck",
+          name: "some",
+          cards: [],
+        },
+      ],
+    };
+
+    expect(Application.EditDeck("idDeck", edit, app)).toEqual(expected);
+  });
+
+  it("edit card return empty deck", () => {
+    const edit = (d: Deck) => {
+      return Deck.EditCard(
+        "idCard",
+        (c: Card) => {
+          return { id: c.id, word: "car", translation: "машина" };
+        },
+        d,
+      );
+    };
+    const expected: Application = {
+      decks: [
+        {
+          id: "idDeck",
+          name: "some",
+          cards: [
+            {
+              id: "idCard",
+              word: "car",
+              translation: "машина",
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(Application.EditDeck("idDeck", edit, app)).toEqual(expected);
   });
 });

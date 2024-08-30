@@ -9,65 +9,48 @@ export type CardSlice = {
   editCard: (word: string, translation: string, idCard: string, idDeck: string) => void;
 };
 
-const GetAppAndDeckIndexById = (id: string, oldApp: Application) => {
-  const app = { ...oldApp };
-  const decks = app.decks;
-  const deckIndex = decks.findIndex(d => d.id === id);
-
-  return { app, decks, deckIndex };
-};
-
 export const createCardSlice: StateCreator<CardSlice & { app: Application }, [], [], CardSlice> = (set, get) => ({
-  addCardToDeck(word, translation, idDeck) {
-    const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
-    if (deckIndex === -1) {
-      return;
-    }
-
-    decks[deckIndex] = Deck.AddNewCard(
-      { id: Math.random() + "Card", word: word, translation: translation },
-      decks[deckIndex],
-    );
-
-    set({
-      ...get(),
-      app: app,
-    });
-  },
-  deleteCardInDeck(idCard, idDeck) {
-    const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
-    if (deckIndex === -1) {
-      return;
-    }
-
-    decks[deckIndex] = Deck.DeleteCard(idCard, decks[deckIndex]);
+  addCardToDeck: (word, translation, idDeck) => {
+    const addCard = (deck: Deck) => {
+      return Deck.AddNewCard(
+        {
+          id: Math.random() + "Card",
+          word: word,
+          translation: translation,
+        },
+        deck,
+      );
+    };
 
     set({
       ...get(),
-      app: app,
+      app: Application.EditDeck(idDeck, addCard, get().app),
     });
   },
 
-  editCard(word, translation, idCard, idDeck) {
-    const { app, decks, deckIndex } = GetAppAndDeckIndexById(idDeck, get().app);
-    if (deckIndex === -1) {
-      return;
-    }
-
-    const deck = decks[deckIndex];
-    const cardIndex = deck.cards.findIndex(c => c.id === idCard);
-    if (cardIndex === -1) {
-      return;
-    }
-
-    deck.cards[cardIndex] = Card.EditCard(word, translation, deck.cards[cardIndex]);
+  deleteCardInDeck: (idCard, idDeck) => {
+    const deleteCard = (deck: Deck) => {
+      return Deck.DeleteCard(idCard, deck);
+    };
 
     set({
       ...get(),
-      app: {
-        ...app,
-        decks: [...decks],
-      },
+      app: Application.EditDeck(idDeck, deleteCard, get().app),
+    });
+  },
+
+  editCard: (word, translation, idCard, idDeck) => {
+    const editCard = (deck: Deck) => {
+      const editCardFields = (c: Card) => {
+        return Card.EditCard(word, translation, c);
+      };
+
+      return Deck.EditCard(idCard, editCardFields, deck);
+    };
+
+    set({
+      ...get(),
+      app: Application.EditDeck(idDeck, editCard, get().app),
     });
   },
 });
